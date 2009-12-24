@@ -1,0 +1,115 @@
+====
+Join
+====
+
+  >>> from zope import component, interface, event
+  >>> from zope.testbrowser.testing import Browser
+  >>> from zope.lifecycleevent import ObjectCreatedEvent
+  >>> from zojax.members.tests.content import Group
+  >>> from zojax.principal.roles.interfaces import IPortalRoles
+
+  >>> root = getRootFolder()
+  >>> sm = root.getSiteManager()
+
+  >>> group = Group()
+  >>> event.notify(ObjectCreatedEvent(group))
+  >>> root['group'] = group
+  >>> members = group.members
+
+  >>> actor = Browser()
+  >>> actor.addHeader("Authorization", "Basic mgr:mgrpw")
+  >>> actor.handleErrors = False
+  >>> actor.open('http://localhost/group/')
+  >>> actor.getLink('Edit Group').click()
+  >>> actor.getLink('Membership').click()
+
+  >>> roleId = sm.getUtility(IPortalRoles)['site.member'].id
+
+  >>> actor.getControl(name="membersconfig.widgets.joining:list").value = [
+  ...     roleId]
+  >>> actor.getControl(name="membersconfig.widgets.approving:list").value = ['false']
+  >>> actor.getControl(name="membersconfig.widgets.invites:list").value = ['member']
+  >>> actor.getControl(name="content.edit.buttons.save").click()
+
+  >>> user = Browser()
+  >>> user.addHeader("Authorization", "Basic user:userpw")
+  >>> user.handleErrors = False
+  >>> user.open('http://localhost/group/listing.html')
+  >>> user.getLink('Join this group').click()
+
+  >>> print user.contents
+  <html>
+  ...
+  <h1>Do you want to join?</h1>
+  ...
+  </html>
+
+  >>> user.getControl('Cancel').click()
+  >>> user.url
+  'http://localhost/group/members/'
+
+  >>> user.open('http://localhost/group/listing.html')  
+  >>> user.getLink('Join this group').click()
+  >>> user.getControl('Join').click()
+  >>> print user.contents
+  <html>
+  ...<div class="statusMessage">Your membership has been submitted. Waiting manager approvement.</div>...
+  </html>
+
+  >>> print list(members.principals)
+  [u'zope.user']
+
+  >>> print members['zope.user'].approved
+  False
+
+  >>> from zojax.security.interfaces import IExtendedGrantInfo
+  >>> grantInfo = IExtendedGrantInfo(group)
+  >>> lst = [info for info in grantInfo.getRolesForPrincipal('zope.user')
+  ...  if not (info[0].startswith('role') or info[0].startswith('content'))]
+  >>> lst.sort()
+  >>> lst
+  []
+
+  >>> actor.open('http://localhost/group/')
+  >>> actor.getLink('Manage members').click()
+  >>> actor.getControl(name="table.members.ids:list").value= ["zope.user"]
+  >>> actor.getControl('Approve').click()
+
+  >>> print members['zope.user'].approved
+  True
+
+  >>> lst = [info for info in grantInfo.getRolesForPrincipal('zope.user')
+  ...  if not (info[0].startswith('role') or info[0].startswith('content'))]
+  >>> lst.sort()
+  >>> lst
+  [('group.Member', PermissionSetting: Allow)]
+
+  >>> user.open('http://localhost/group/')
+  >>> print user.contents
+  <html>
+  ...
+  <div><div class="z-portlet portlet-members-recentlyjoined">
+    <h2 class="z-portlet-header">
+        Recently joined
+    </h2>
+    <div class="z-portlet-body">
+      <div class="z-portlet-item odd">
+        <div class="t-avatar">
+          <a href="http://localhost/people/user/">
+            <img src="http://localhost/@@profile.avatar/0" title="User" />
+          </a>
+        </div>
+        <a href="http://localhost/people/user/">User</a>  
+        <div class="z-portlet-item-details">
+          joined
+          ...second(s) ago...
+        </div>
+        <div class="visualClear"></div>
+      </div>
+    </div>
+    <div class="z-portlet-footer">
+      <a href="http://localhost/group/members/">More...</a>
+    </div>
+  </div></div>
+  ...
+  </html>

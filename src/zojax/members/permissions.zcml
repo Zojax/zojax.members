@@ -1,0 +1,40 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   i18n_domain="zojax.members">
+
+  <!-- roles -->
+  <role id="group.Manager"
+	title="Group manager" />
+
+  <role id="group.Member"
+	title="Group member" />
+
+  <!-- permissions -->
+  <permission
+     id="zojax.AddGroupUser"
+     title="Add member to group"
+     description="Allow add users to groups."/>
+
+  <permission
+     id="zojax.JoinGroup"
+     title="Join members"
+     description="Allow join to members."/>
+
+  <permission
+     id="zojax.InviteGroupMember"
+     title="Invite member"
+     description="Allow invite members."/>
+
+  <permission
+     id="zojax.ModifyMembersSettings"
+     title="Modify members settings." />
+
+  <!-- default members permissions -->
+  <permissions for=".interfaces.IMembers" name="default">
+    <grant permission="zojax.ModifyContent"
+	   role="group.Manager" />
+    <denyAll permission="zojax.InviteGroupMember" />
+  </permissions>
+
+</configure>

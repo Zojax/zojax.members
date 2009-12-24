@@ -1,0 +1,35 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   i18n_domain="zojax.members">
+
+  <class class=".members.Members">
+    <implements interface="zope.annotation.interfaces.IAttributeAnnotatable" />
+    <implements interface="zojax.content.type.interfaces.IContent" />
+    <implements interface="zojax.content.type.interfaces.IRenameNotAllowed" />
+    <implements interface="zojax.content.type.interfaces.IUnremoveableContent" />
+    <implements interface="zojax.content.type.interfaces.IContainerContentsAware" />
+
+    <require
+       permission="zope.View"
+       interface=".interfaces.IMembers
+		  zojax.content.type.interfaces.IItem
+		  zope.app.container.interfaces.IReadContainer" />
+    <require
+       permission="zojax.ModifyContent"
+       set_schema=".interfaces.IMembers"
+       interface=".interfaces.IMemberRoleManagement
+		  zope.app.container.interfaces.IWriteContainer" />
+    <require
+       permission="zojax.InviteGroupMember"
+       attributes="invite" />
+  </class>
+
+  <adapter
+     name="members"
+     for=".interfaces.IMembersAware"
+     provides="zojax.content.space.interfaces.IWorkspaceFactory"
+     factory=".members.MembersFactory" />
+
+  <subscriber handler=".members.membersAwareObjectCreated" />
+
+</configure>

@@ -1,0 +1,40 @@
+<div class="member-invitation" tal:define="info view/invitation">
+  <strong style="font-size: 110%">
+    <a tal:attributes="href view/siteURL" tal:content="view/siteTitle"></a>
+  </strong>
+  <br /><br />
+
+  <dl>
+    <dt>
+      <a tal:attributes="href info/url; title info/title">
+  <img tal:condition="info/default"
+       tal:attributes="src context/++resource++groupEmptyImage.png" />
+  <img tal:condition="not:info/default"
+       tal:attributes="src string:${info/url}/++attribute++logo" />
+      </a>
+      <div class="member-invitation-byline">
+  <tal:block content="info/members"/> Member(s),
+  Created on <tal:block content="structure formatter:date,medium:info/created" />
+  <tal:block condition="not:info/created">Unknown</tal:block>
+  <br />
+      </div>
+    </dt>
+    <dd>
+      <h4 class="member-invitation-title">
+  <tal:block tal:content="info/sender"/>
+  invites you to join
+  <a tal:attributes="href info/url" tal:content="info/title"></a>
+      </h4>
+      <div tal:content="info/description"></div>
+      <br />
+      <div tal:content="structure info/message"></div>
+      <hr />
+      <a tal:attributes="href string:${view/space/@@absolute_url}/profile/myinvitations.html">View all my invitations.</a>
+    </dd>
+  </dl>
+  <div class="visualClear"></div>
+</div>
+
+<style tal:define="styles nocall:context/++resource++members-memberinvitation-styles"
+       tal:content="structure python:styles.render(request)">
+</style>

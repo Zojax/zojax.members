@@ -1,0 +1,79 @@
+<div class="z-wizard-step" i18n:domain="zojax.members">
+  <h2 class="z-form-label" tal:condition="context/label" 
+      tal:content="context/label">Do something</h2>
+  <div class="z-form-description" tal:condition="context/description"
+       tal:content="context/description"></div>
+
+  <h2 i18n:translate="">Select Users</h2>
+  <br />
+
+  <div class="z-table-container"
+       tal:condition="context/batch" tal:define="url context/managerURL">
+    <table class="z-table">
+      <thead>
+	<tr class="z-table-pages">
+	  <td colspan="5">
+	    <tal:block content="structure context/batch/@@pagelet/batch.view" />
+	  </td>
+	</tr>
+        <tr>
+          <th></th>
+          <th i18n:translate="">Avatar</th>
+          <th i18n:translate="">Name</th>
+          <th i18n:translate="">Joined</th>
+          <th i18n:translate="">Approved</th>
+	</tr>
+      </thead>
+      <tbody>
+        <tal:block tal:repeat="uid context/batch">
+          <tr tal:define="info python:context.getMemberInfo(uid);
+			  userurl string:$url/${info/spaceid}/profile/"
+              tal:attributes="class python:repeat['uid'].odd() 
+			      and 'even' or 'odd'">
+            <td>
+              <input type="checkbox" name="principal.users:list"
+		     tal:attributes="value info/id" />
+            </td>
+            <td class="ctb-avatar">
+              <div>
+                <a tal:attributes="href userurl" tal:omit-tag="not:url">
+                  <img tal:attributes="src info/avatar" />
+                </a>
+              </div>
+            </td>
+            <td>
+              <a tal:attributes="href userurl" tal:omit-tag="not:url">
+                <tal:block content="info/title" />
+              </a>
+            </td>
+            <td tal:content="structure info/joined"></td>
+            <td tal:content="structure info/approved" i18n:translate=""></td>
+          </tr>
+        </tal:block>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="z-form-fieldset" tal:condition="context/widgets">
+    <tal:block tal:repeat="context context/widgets/values"
+               tal:content="structure pagelet:form.widget" />
+  </div>
+
+  <tal:block tal:condition="context/groups|nothing"
+	     tal:repeat="context context/groups"
+	     tal:content="structure pagelet:form" />
+
+  <tal:block tal:condition="context/subforms|nothing"
+	     tal:repeat="context context/subforms"
+	     tal:content="structure pagelet:form" />
+
+  <tal:block tal:condition="context/forms|nothing"
+	     tal:repeat="context context/forms"
+	     tal:content="structure pagelet:form" />
+
+  <tal:block tal:condition="context/views|nothing"
+	     tal:repeat="context context/views"
+	     tal:content="structure context/render" />
+
+  <tal:block tal:content="structure pagelet:form.buttons" />
+</div>

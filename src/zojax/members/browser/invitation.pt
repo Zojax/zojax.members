@@ -1,0 +1,42 @@
+<div class="member-invitation" i18n:domain="zojax.members"
+     tal:define="info view/invitation">
+  <dl>
+    <dt>
+      <a tal:attributes="href info/url; title info/title">
+	<img tal:condition="info/default"
+	     tal:attributes="src context/++resource++groupEmptyImage.png" />
+	<img tal:condition="not:info/default"
+	     tal:attributes="src string:${info/url}/++attribute++logo" />
+      </a>
+      <div class="member-invitation-byline">
+	<tal:block content="info/members"/> Member(s),
+	Created on <tal:block content="structure formatter:date,medium:info/created" />
+	<tal:block condition="not:info/created">Unknown</tal:block>
+	<br />
+      </div>
+    </dt>
+    <dd>
+      <h4 class="member-invitation-title">
+	<tal:block i18n:translate="">
+	  <tal:block i18n:name="member" tal:content="info/sender"/>
+	  invites you to join </tal:block>
+	<a tal:attributes="href info/url" tal:content="info/title"></a>
+      </h4>
+      <br />
+      <div tal:content="structure info/message"></div>
+      <form tal:attributes="href request/URL" method="post">
+	<input type="hidden" name="invitation" tal:attributes="value info/id" />
+	<div class="z-form-controls">
+	  <hr />
+	  <input type="submit" name="form.button.accept"
+		 class="z-form-button" value="Accept"
+		 i18n:attributes="value" />
+	  <input type="submit" name="form.button.reject"
+		 class="z-form-removebutton" value="Reject"
+		 i18n:attributes="value" />
+	</div>
+      </form>
+    </dd>
+  </dl>
+  <div class="visualClear"></div>
+</div>

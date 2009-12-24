@@ -1,0 +1,17 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   i18n_domain="zojax.groups">
+
+  <utility
+     name="zojax.group.members"
+     factory=".vocabulary.GroupMembersVocabulary" />
+
+  <utility
+     name="zojax.group.yourgroups"
+     factory=".vocabulary.YourGroupsVocabulary" />
+
+  <utility
+     name="zojax.group.invitablegroups"
+     factory=".vocabulary.YourInvitableGroupsVocabulary" />
+
+</configure>

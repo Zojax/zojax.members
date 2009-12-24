@@ -1,0 +1,33 @@
+<div class="z-portlet portlet-members-recentlyjoined" 
+     i18n:domain="zojax.members">
+
+  <h2 class="z-portlet-header" i18n:translate="">
+    Recently joined
+  </h2>
+
+  <div class="z-portlet-body">
+    <div tal:repeat="member context/getMembers"
+	 tal:attributes="class python:repeat['member'].odd() and 'z-portlet-item even'
+			 or 'z-portlet-item odd'">
+
+      <div class="t-avatar" tal:condition="member/avatar">
+	<a href="#" tal:attributes="href member/space" tal:omit-tag="not:member/space">
+	  <img src="" tal:attributes="title member/author; src member/avatar" />
+	</a>
+      </div>
+      <a tal:attributes="href member/space" tal:content="member/author"
+	 tal:omit-tag="not:member/space"></a>  
+      
+      <div class="z-portlet-item-details" i18n:translate="">
+	joined
+	<tal:block i18n:name="date" content="structure member/joined" />
+      </div>
+      <div class="visualClear"></div>
+    </div>
+  </div>
+
+  <div class="z-portlet-footer">
+    <a tal:attributes="href string:${context/context/@@absolute_url}/members/"
+       i18n:translate="">More...</a>
+  </div>
+</div>

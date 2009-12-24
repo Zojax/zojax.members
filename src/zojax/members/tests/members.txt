@@ -1,0 +1,344 @@
+=============
+Group Members
+=============
+
+  >>> from zope import component, event
+  >>> from zope.testbrowser.testing import Browser
+  >>> from zope.lifecycleevent import ObjectCreatedEvent
+  >>> from zojax.members import interfaces
+  >>> from zojax.members.tests.content import Group
+
+  >>> root = getRootFolder()
+
+  >>> group = Group()
+  >>> event.notify(ObjectCreatedEvent(group))
+  >>> root['group'] = group
+
+  >>> actor = Browser()
+  >>> actor.addHeader("Authorization", "Basic mgr:mgrpw")
+  >>> actor.handleErrors = False
+
+
+Group members
+-------------
+
+  >>> user = Browser()
+  >>> user.addHeader("Authorization", "Basic user:userpw")
+  >>> user.handleErrors = False
+  >>> user.open('http://localhost/group/')
+
+  >>> from zojax.security.interfaces import IExtendedGrantInfo
+  >>> grantInfo = IExtendedGrantInfo(group)
+  >>> [info for info in grantInfo.getRolesForPrincipal('zope.user')
+  ...  if not info[0].startswith('role')]
+  [('content.Owner', PermissionSetting: Deny)]
+
+  >>> actor.open('http://localhost/group/')
+  >>> actor.getLink('Manage members').click()
+  >>> actor.getLink('Add members').click()
+
+  >>> actor.getControl('Add Members').click()
+  >>> print actor.contents
+  <html>
+  ...Please select users...
+  </html>
+
+  >>> actor.getControl(name="principal.users:list").value = ['zope.user']
+  >>> actor.getControl('Add Members').click()
+  >>> print actor.contents
+  <html>
+  ...
+  ...Users have been added to group...
+  ...
+  </html>
+
+  >>> print list(group.members.keys())
+  [u'zope.user']
+
+  >>> print list(group.members.principals)
+  [u'zope.user']
+
+  >>> member = group.members['zope.user']
+
+  >>> member.principal
+  <zope...principalregistry.Principal object at ...>
+
+  >>> member.title
+  u'User'
+  >>> member.description
+  ''
+  >>> print member.space
+  None
+  >>> member.profile
+  <zojax.preferences.preferencetype.Preference<profile> object at ...>
+
+
+Send message to selected members
+---------------------------------
+
+We need to set email
+  >>> from zojax.principal.profile.interfaces import IPrincipalInformation
+  >>> IPrincipalInformation(member.principal).email = 'some@some.com'
+
+  >>> emails = []
+  >>> from email import message_from_string
+  >>> def send(self, fromaddr, toaddr, message):
+  ...     message = message_from_string(message)
+  ...     emails.append((fromaddr, toaddr, message['subject'], map(lambda x: x.get_payload(decode=1), message.get_payload())))
+  >>> def getEMails(clear=True):
+  ...     global emails
+  ...     m = list(emails)
+  ...     if clear:
+  ...         emails = []
+  ...     return m
+
+  >>> from zope.sendmail.mailer import SMTPMailer
+    >>> oldSend = SMTPMailer.send
+    >>> SMTPMailer.send = send
+
+  >>> actor.open('http://localhost/group/')
+  >>> actor.getLink('Manage members').click()
+  >>> actor.getLink('Send message').click()
+
+  >>> actor.getControl('Message').value = 'some'
+  >>> actor.getControl('Send').click()
+  >>> print actor.contents
+  <html>
+  ...Please select users...
+  </html>
+
+  >>> actor.getControl(name="principal.users:list").value = ['zope.user']
+  >>> actor.getControl('Send').click()
+  >>> print actor.contents
+  <html>
+  ...
+  ...Message to members has been sent...
+  ...
+  </html>
+
+  >>> len(emails)
+  1
+
+  >>> emails[-1][0:3]
+  (u'Portal administrator <portal@zojax.net>', ('some@some.com',), 'None: Unknown member sent you a message in ')
+
+  >>> print emails[-1][3][0]
+  ** http://localhost
+  Unknown member sent you a message in
+   http://localhost/group/
+  Group description:
+  --------------------------------------------
+  some
+  -------------------------------------------
+
+  >>> print emails[-1][3][1]
+  <div class="member-message">
+  <strong style="font-size: 110%">
+    <a href="http://localhost"></a>
+  </strong>
+  <br /><br />
+  <dl>
+    <dt>
+      <a href="http://localhost/group/" title="">
+  <img src="http://localhost/@@/groupEmptyImage.png" />
+      </a>
+      <div class="member-message-byline">
+  1 Member(s),
+  Created on ...
+  <br />
+      </div>
+    </dt>
+    <dd>
+      <h4 class="member-message-title">
+  Unknown member
+  sent you a message in
+  <a href="http://localhost/group/"></a>
+      </h4>
+      <div></div>
+      <br />
+      <div>some</div>
+      <hr />
+    </dd>
+  </dl>
+  <div class="visualClear"></div>
+  </div>
+  <style>
+  ...
+  </style>
+
+
+Export members
+--------------
+
+  >>> actor.open('http://localhost/group/')
+  >>> actor.getLink('Manage members').click()
+  >>> actor.getLink('Export').click()
+  >>> actor.getControl('Export CSV').click()
+  >>> actor.isHtml
+  False
+
+  >>> actor.headers['CONTENT-TYPE']
+  'text/csv'
+
+  >>> actor.headers['CONTENT-DISPOSITION']
+  'attachment; filename=members.csv'
+
+  >>> actor.headers['Content-Length']
+  '143'
+
+  >>> import csv
+  >>> import StringIO
+  >>> xls = csv.reader(StringIO.StringIO(actor.contents))
+  >>> sorted([i for i in xls])
+  [['Principal full name',
+   'Principal first name',
+   'Principal last name',
+   'Principal email',
+   'Timezone',
+   'Registered',
+   'Last login time'],
+  ['User', 'User', '', 'some@some.com', '', '', '']]
+
+
+Browse members
+--------------
+
+  >>> actor.open('http://localhost/group/')
+  >>> print actor.contents
+  <html>
+  ...
+  <div id="space-columns">
+    <table id="space-columns-table" cellspacing="0" cellpadding="0">
+      <tr>
+        <td id="space-column-content">
+          <div id="z-portal-workspace"><div id="z-portal-viewspace"><div id="z-content"><h1>Members</h1><div class="personalspace-manager">
+        <div class="personalspace-memberinfo">
+        <dl>
+        <dt>
+          <a href="http://localhost/people/user/profile/" title="User">
+            <img width="128" height="97" src="http://localhost/@@/profileEmptyImage.png" />
+          </a>
+        </dt>
+        <dd>
+          <div>
+            <a href="http://localhost/people/user/profile/" title="">User</a>
+          </div>
+          Joined on
+          ...
+        </dd>
+       </dl>
+     </div>
+  ...
+  </html>
+
+
+Group member roles
+------------------
+
+  >>> grantInfo = IExtendedGrantInfo(group)
+  >>> lst = [info for info in grantInfo.getRolesForPrincipal('zope.user')
+  ...  if not info[0].startswith('role')]
+  >>> lst.sort()
+  >>> lst
+  [('content.Owner', PermissionSetting: Deny), ('group.Member', PermissionSetting: Allow)]
+
+  >>> grantInfo.getPrincipalsForRole('group.Member')
+  [(u'zope.user', PermissionSetting: Allow)]
+
+  >>> from zope.securitypolicy.interfaces import IPrincipalRoleMap
+
+  >>> localroles = component.getAdapter(group, IPrincipalRoleMap,'zojax.members')
+  >>> localroles.getSetting('group.Manager', 'zope.user')
+  PermissionSetting: Unset
+  >>> localroles.getSetting('group.Member', 'zope.user')
+  PermissionSetting: Allow
+  >>> localroles.getPrincipalsAndRoles()
+
+
+Group managers
+--------------
+
+  >>> actor.getLink('Members').click()
+  >>> actor.getLink('Manage members').click()
+  >>> actor.getControl('Change to manager role').click()
+  >>> print actor.contents
+  <html>
+  ...Please select members...
+  </html>
+
+  >>> actor.getControl(name='table.members.ids:list').value = ['zope.user']
+  >>> actor.getControl('Change to manager role').click()
+
+  >>> print group.members.managers
+  (u'zope.user',)
+
+  >>> grantInfo = IExtendedGrantInfo(group)
+  >>> lst = [info for info in grantInfo.getRolesForPrincipal('zope.user')
+  ...  if not (info[0].startswith('role') or info[0].startswith('content'))]
+  >>> lst.sort()
+  >>> lst
+  [('group.Manager', PermissionSetting: Allow), ('group.Member', PermissionSetting: Allow)]
+
+  >>> actor.getControl(name='table.members.ids:list').value = []
+  >>> actor.getControl('Change to member role').click()
+  >>> print actor.contents
+  <html>
+  ...Please select members...
+  </html>
+
+  >>> actor.getControl(name='table.members.ids:list').value = ['zope.user']
+  >>> actor.getControl('Change to member role').click()
+
+  >>> print group.members.managers
+  ()
+
+  >>> grantInfo = IExtendedGrantInfo(group)
+  >>> lst = [info for info in grantInfo.getRolesForPrincipal('zope.user')
+  ...  if not info[0].startswith('role')]
+  >>> lst.sort()
+  >>> lst
+  [('content.Owner', PermissionSetting: Deny), ('group.Member', PermissionSetting: Allow)]
+
+
+RSS feed
+
+    >>> user.open('http://localhost/group/@@feeds/members')
+    >>> print user.contents
+    <?xml version="1.0" encoding="UTF-8"?>
+    <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+      <channel>
+        <title>Recent members</title>
+        <link>http://localhost/group/</link>
+        <description>List of recently joined members.</description>
+        <atom:link rel="self" type="application/rss+xml"
+                   href="http://localhost/group/@@feeds/members"/>
+        <item>
+          <title>User</title>
+          <description></description>
+          <guid isPermaLink="true">http://localhost/people/user</guid>
+          <author>some@some.com (User)</author>
+          <pubDate>...</pubDate>
+        </item>
+      </channel>
+    </rss>
+
+Remove member
+-------------
+
+  >>> actor.getControl(name='table.members.ids:list').value = []
+  >>> actor.getControl('Remove').click()
+  >>> print actor.contents
+  <html>
+  ...Please select members...
+  </html>
+
+  >>> actor.getControl(name='table.members.ids:list').value = ['zope.user']
+  >>> actor.getControl('Remove').click()
+
+  >>> print tuple(group.members.principals)
+  ()
+
+  >>> grantInfo = IExtendedGrantInfo(group)
+  >>> [info for info in grantInfo.getRolesForPrincipal('zope.user')
+  ...  if not info[0].startswith('role')]
+  [('content.Owner', PermissionSetting: Deny)]

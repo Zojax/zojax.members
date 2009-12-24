@@ -1,0 +1,16 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <!-- member joined activity -->
+  <class class=".activity.MemberJoinedActivityRecord">
+    <require
+       permission="zope.Public"
+       interface=".interfaces.IMemberJoinedActivityRecord" />
+  </class>
+
+  <utility
+     name="member.joined"
+     factory=".activity.MemberJoinedActivityRecordDescription" />
+
+  <subscriber handler=".activity.memberJoinedHandler" />
+
+</configure>

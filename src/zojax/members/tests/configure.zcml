@@ -1,0 +1,37 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zope">
+
+  <interface
+     name="DefaultSkin"
+     interface=".tests.IDefaultSkin"
+     type="zope.publisher.interfaces.browser.IBrowserSkinType" />
+
+  <zojax:content
+     title="Group"
+     name="content.group"
+     description="Group of members"
+     schema=".content.IGroup"
+     class=".content.Group" />
+
+  <class class=".content.Group">
+    <implements interface="zojax.ownership.interfaces.IOwnerAware" />
+    <implements interface="zojax.extensions.interfaces.IExtensible" />
+
+    <require
+       permission="zope.View"
+       interface="zojax.members.interfaces.IMembersAware
+		  zojax.content.space.interfaces.IContentSpace
+		  zojax.content.space.interfaces.IContentSpaceLayout
+		  zojax.content.space.interfaces.IWorkspacesManagement
+		  zope.app.container.interfaces.IReadContainer" />
+    <require
+       permission="zojax.ModifyContent"
+       set_schema=".content.IGroup
+		   zojax.content.space.interfaces.IWorkspacesManagement"
+       interface="zope.app.container.interfaces.IWriteContainer" />
+  </class>
+
+</configure>

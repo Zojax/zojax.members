@@ -1,0 +1,14 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   i18n_domain="zojax.members">
+
+  <!-- invitation -->
+  <zojax:content
+     name="invitation.member"
+     title="Member invitation"
+     schema=".interfaces.IMemberInvitation"
+     class=".invitation.MemberInvitation"
+     type="zojax.content.type.interfaces.IInactiveType" />
+
+</configure>
