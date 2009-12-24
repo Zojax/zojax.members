@@ -1,0 +1,13 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <class class=".member.Member">
+    <implements interface="zojax.content.type.interfaces.IRenameNotAllowed" />
+
+    <require
+       permission="zope.View"
+       interface=".interfaces.IMember" />
+  </class>
+
+  <subscriber handler=".member.memberRemoved" />
+
+</configure>

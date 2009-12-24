@@ -1,0 +1,30 @@
+<h1>EMail notifications</h1>
+
+<div class="z-table-container">
+  <table class="z-table">
+    <thead>
+      <tr>
+	<th>&nbsp;</th>
+	<th tal:repeat="notification view/notifications"
+	    tal:content="notification/title"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr tal:repeat="member view/members"
+	  tal:attributes="class python:repeat['member'].odd() and 'even' or 'odd'">
+	<td tal:content="member/title"></td>
+	<td tal:repeat="notification view/notifications" class="notification">
+	  <input type="checkbox" name="notifications:list"
+		 tal:attributes="value string:${member/id}:${notification/type};
+				 checked python:notification.isSubscribed(member['id'])" />
+      </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="z-form-controls">
+  <hr />
+  <input type="submit" class="z-form-button"
+	 name="notifications.save" value="Update" />
+</div>

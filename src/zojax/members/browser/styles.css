@@ -1,0 +1,63 @@
+/* zrt-cssregistry: */
+
+@media all {
+
+  .member-invitation {
+    padding: 1em;
+    border-bottom: borderWidth borderStyleAnnotations globalBorderColor;
+  }
+
+  .member-invitation dt {
+    float: left;
+    padding-right: 1.5em;
+    text-align: center;
+    width: 130px;
+    font-size: 90%;
+    font-weight: normal;
+    overflow: hidden;
+  }
+
+  .member-invitation dt img {
+    height: auto;
+    width: 100%;
+    padding-bottom: 0.25em;
+  }
+
+  .member-invitation dd { 
+    overflow: hidden;
+  }
+
+  .member-invitation dd a:visited {
+    color: linkColor;
+  }
+  
+  .member-invitation dd { 
+    white-space: normal;
+    overflow: hidden;
+  }
+
+  .member-invitation dd h4 {
+    font-size: 140%;
+    font-weight: normal;
+  }
+
+  .member-invitation dd .member-invitation-byline { 
+    font-size: 90%;
+    color: discreetColor;
+  }
+
+  .portlet-members-recentlyjoined div.t-avatar { 
+    float: left;
+    padding-right: 0.5em;
+    width: 32px;
+    text-align: center;
+  }
+
+  .portlet-members-recentlyjoined .t-avatar img {
+    padding: 2px;
+    width: 27px;
+    height: auto;
+    border: 1px solid globalBorderColor;
+  }
+
+}

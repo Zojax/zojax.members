@@ -1,0 +1,24 @@
+<h2>Members</h2>
+
+<h3>Group owner</h3>
+<div class="z-form-fieldset" tal:define="owner view/owner">
+  Owner: <a tal:attributes="href string:${context/__parent__/@@absolute_url}/context.html/security/changeowner.html"
+            tal:content="owner/title"
+            title="Change owner" i18n:attributes="title"></a>
+  <div tal:content="owner/desc" tal:condition="owner/desc" />
+</div>
+
+<tal:block content="structure provider:group.manage.members" />
+
+<div class="z-form-controls" tal:condition="context">
+  <hr />
+  <input type="submit" class="z-form-button"
+   name="members.buttons.member" value="Change to member role" />
+  <input type="submit" class="z-form-button"
+   name="members.buttons.manager" value="Change to manager role" />
+  <input type="submit" class="z-form-button"
+   name="members.buttons.approve" value="Approve" />
+  <input type="submit" class="z-form-removebutton"
+   name="members.buttons.remove" value="Remove" />
+</div>
+

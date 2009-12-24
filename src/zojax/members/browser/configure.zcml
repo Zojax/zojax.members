@@ -1,0 +1,54 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.groups">
+
+  <include file="members.zcml" />
+  <include file="invitation.zcml" />
+  <include file="notifications.zcml" />
+
+  <!-- join -->
+  <zojax:pagelet
+     name="join.html"
+     for="..interfaces.IMembersAware"
+     template="join.pt"
+     class=".join.Join"
+     permission="zojax.JoinGroup" />
+
+  <adapter
+     name="join"
+     for="..interfaces.IMembersAware *"
+     factory=".join.JoinAction" />
+
+  <browser:icon
+     name="zmi_icon"
+     for=".interfaces.IJoinGroupAction"
+     file="icons/user_add.png" />
+
+  <!-- security tab -->
+  <zojax:pagelet
+     name="permissions"
+     type="form.subform"
+     for="..interfaces.IMembersAware
+	  zojax.content.forms.interfaces.ISecurityStep"
+     class=".security.MembersAwareContentPermissions"
+     provides="zojax.layoutform.interfaces.IPageletFormView"
+     weight="100" />
+
+  <!-- icons -->
+  <browser:icon
+     name="zmi_icon"
+     for="..interfaces.IMember"
+     file="icons/user.png" />
+
+  <!-- styles -->
+  <zojax:resourceinclude
+     name="zojax-members.css"
+     file="styles.css"
+     library="zojax" type="stylesheet" filetype="zrt" />
+
+  <browser:resource
+     name="groupEmptyImage.png" file="icons/groupImage.png" />
+
+</configure>

@@ -1,0 +1,158 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.members">
+
+  <!-- members -->
+  <browser:defaultView
+     name="index.html"
+     for="..interfaces.IMembers" />
+
+  <zojax:pagelet
+     name="index.html"
+     for="..interfaces.IMembers"
+     template="members.pt"
+     class=".members.Members"
+     permission="zope.View" />
+
+  <browser:icon
+     name="zmi_icon"
+     for="..interfaces.IMembers"
+     file="icons/users.png" />
+
+  <!-- manage members -->
+  <zojax:pagelet
+     name="contents"
+     title="Members"
+     type="wizard.step"
+     for="..interfaces.IMembers
+          zojax.content.forms.interfaces.IEditContentWizard"
+     template="managemembers.pt"
+     weight="50"
+     class=".managemembers.ManageMembersForm"
+     permission="zojax.ModifyContent" />
+
+  <adapter
+     name="group.manage.members"
+     provides="zope.contentprovider.interfaces.IContentProvider"
+     factory=".managemembers.ManageMembersTable" />
+
+  <adapter
+     name="id"
+     factory=".managemembers.IdColumn" />
+
+  <adapter
+     name="avatar"
+     factory=".managemembers.AvatarColumn" />
+
+  <adapter
+     name="authorname"
+     factory=".managemembers.AuthorNameColumn" />
+
+  <adapter
+     name="email"
+     factory=".managemembers.EmailColumn" />
+
+  <adapter
+     name="joined"
+     factory=".managemembers.JoinedColumn" />
+
+  <adapter
+     name="role"
+     factory=".managemembers.RoleColumn" />
+
+  <adapter
+     name="approved"
+     factory=".managemembers.ApprovedColumn" />
+
+  <!-- add members -->
+  <zojax:pagelet
+     name="addusers"
+     type="wizard.step"
+     for="..interfaces.IMembers
+          zojax.content.forms.interfaces.IEditContentWizard"
+     class=".addmembers.AddMembersForm"
+     weight="100"
+     permission="zojax.AddGroupUser" />
+
+  <!-- send message -->
+  <zojax:pagelet
+     name="sendmessage"
+     type="wizard.step"
+     for="..interfaces.IMembers
+          zojax.content.forms.interfaces.IEditContentWizard"
+     class=".sendmessage.SendMessageForm"
+     weight="105"
+     permission="zojax.ModifyContent" />
+
+  <zojax:pagelet
+     type="form"
+     for=".sendmessage.SendMessageForm"
+     template="sendmessage.pt" />
+
+  <!-- message mail -->
+  <zojax:mailtemplate
+     name="html"
+     for=".sendmessage.SendMessageForm"
+     contentType="text/html"
+     template="messagetemplate.pt"
+     class=".messagetemplate.MemberMessageNotification" />
+
+  <zojax:mailtemplate
+     name="text"
+     for=".sendmessage.SendMessageForm"
+     contentType="text/plain"
+     template="messagetemplatetext.pt"
+     class=".messagetemplate.MemberMessageNotification" />
+
+  <zojax:resource
+     name="members-sendmessage-styles"
+     file="messagetemplate.css" type="zrt" />
+
+  <!-- export members to csv -->
+  <zojax:pagelet
+     name="export"
+     type="wizard.step"
+     for="..interfaces.IMembers
+          zojax.content.forms.interfaces.IEditContentWizard"
+     class=".export.ExportForm"
+     weight="105"
+     permission="zojax.ModifyContent" />
+
+  <!-- configure members -->
+  <zojax:pagelet
+     name="config"
+     type="wizard.step"
+     for="..interfaces.IMembers
+	  zojax.content.forms.interfaces.IEditContentWizard"
+     class=".addmembers.MembersConfig"
+     weight="110"
+     provides="zojax.wizard.interfaces.ISaveable"
+     permission="zojax.ModifyMembersSettings" />
+
+  <zojax:pagelet
+     name="membersconfig"
+     type="wizard.step"
+     for="..interfaces.IMembersAware
+          zojax.content.forms.interfaces.IEditContentWizard"
+     class=".addmembers.MembersAwareConfig"
+     weight="110"
+     provides="zojax.wizard.interfaces.ISaveable"
+     permission="zojax.ModifyMembersSettings" />
+
+  <!-- manage members action -->
+  <adapter
+     name="manage.members"
+     factory=".members.ManageMembers" />
+
+  <adapter
+     name="manage.members"
+     factory=".members.ManageMembersGroup" />
+
+  <browser:icon
+     name="zmi_icon"
+     for=".interfaces.IManageMembersAction"
+     file="icons/group_gear.png" />
+
+</configure>

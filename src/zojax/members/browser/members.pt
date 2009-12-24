@@ -1,0 +1,36 @@
+<h1>Members</h1>
+
+<div class="personalspace-manager">
+  <tal:block content="structure view/batch/@@pagelet/batch.view" />
+
+  <tal:block tal:repeat="uid view/batch">
+    <div class="personalspace-memberinfo" 
+	 tal:define="info python:view.getMemberInfo(uid)"
+	 tal:condition="info">
+      <dl>
+	<dt>
+	  <a tal:attributes="href string:${info/personalspace}/profile/;
+			     title info/manager"
+	     tal:omit-tag="not:info/personalspace">
+	    <img tal:condition="not:info/default"
+		 tal:attributes="width info/imagex; height info/imagey;
+				 src info/photo" />
+	    <img tal:condition="info/default"
+		 tal:attributes="width info/imagex; height info/imagey;
+				 src context/++resource++profileEmptyImage.png" />
+	  </a>
+	</dt>
+	<dd>
+	  <div>
+	    <a tal:attributes="href string:${info/personalspace}/profile/; title info/description"
+	       tal:content="info/title" tal:omit-tag="not:info/personalspace"></a>
+	  </div>
+	  Joined on
+	  <tal:block condition="info/joined"
+		     content="structure formatter:date,medium:info/joined" />
+	  <tal:block condition="not:info/joined">Unknown</tal:block>
+	</dd>
+      </dl>
+    </div>
+  </tal:block>
+</div>

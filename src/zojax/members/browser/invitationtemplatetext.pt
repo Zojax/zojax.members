@@ -1,0 +1,19 @@
+<tal:block define="info view/invitation">
+*<tal:block tal:content="view/siteTitle" />* <tal:block content="view/siteURL" />
+
+<tal:block tal:content="info/sender"/> invites you to join 
+<tal:block tal:content="info/title" /> <tal:block content="info/url" />
+
+Group description:
+<tal:block content="info/description" />
+
+--------------------------------------------
+<tal:block content="structure context/message" />
+-------------------------------------------
+
+To accept this invitation, please go to:
+<tal:block content="info/url" />
+
+View all my invitations:
+<tal:block content="string:${view/space/@@absolute_url}/profile/myinvitations.html" />
+</tal:block>

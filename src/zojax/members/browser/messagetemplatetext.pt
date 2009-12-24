@@ -1,0 +1,13 @@
+<tal:block define="info view/info">
+*<tal:block tal:content="view/siteTitle" />* <tal:block content="view/siteURL" />
+
+<tal:block tal:content="info/sender"/> sent you a message in
+<tal:block tal:content="info/title" /> <tal:block content="info/url" />
+
+Group description:
+<tal:block content="info/description" />
+
+--------------------------------------------
+<tal:block content="structure context/message" />
+-------------------------------------------
+</tal:block>

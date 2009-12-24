@@ -1,0 +1,38 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:i18n="http://namespaces.zope.org/i18n"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   i18n_domain="zojax.members">
+
+  <include file="permissions.zcml" />
+  <include file="activity.zcml" />
+  <include file="member.zcml" />
+  <include file="members.zcml" />
+  <include file="invitation.zcml" />
+  <include file="feeds.zcml" />
+
+  <!-- portlets -->
+  <include package=".portlets" />
+
+  <!-- browser views -->
+  <include package=".browser" />
+
+  <!-- roles -->
+  <adapter
+     name="zojax.members"
+     factory=".roles.MembersAwareLocalroles" />
+
+  <adapter
+     name="zojax.members"
+     factory=".roles.getMembersAwareLocalroles" />
+
+  <!-- catalog index -->
+  <utility
+     name="members"
+     component=".indexes.membersIndex"
+     provides="zojax.catalog.interfaces.ICatalogIndexFactory" />
+
+  <!-- translations -->
+  <i18n:registerTranslations directory="locales"/>
+
+</configure>

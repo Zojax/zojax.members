@@ -1,0 +1,21 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.members">
+
+  <!-- recently joined members -->
+  <zojax:portlet
+     title="Recently joined members"
+     for="..interfaces.IMembersAware"
+     name="portlet.recentlyjoined"
+     description="Recently joined members."
+     class=".joined.RecentlyJoinedMembersPortlet"
+     schema=".interfaces.IRecentlyJoinedMembersPortlet" />
+
+  <zojax:pagelet
+     type="portlet.view"
+     template="joined.pt"
+     for=".interfaces.IRecentlyJoinedMembersPortlet" />
+
+</configure>

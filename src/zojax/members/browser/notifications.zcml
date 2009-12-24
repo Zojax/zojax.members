@@ -1,0 +1,17 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.members">
+
+  <zojax:pagelet
+     name="notifications"
+     title="Notifications"
+     type="wizard.step"
+     for="* zojax.content.forms.interfaces.IEditContentWizard"
+     template="notifications.pt"
+     weight="110"
+     class=".notifications.Notifications"
+     permission="zojax.ModifyContent" />
+
+</configure>

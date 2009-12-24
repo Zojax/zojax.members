@@ -1,0 +1,39 @@
+<div class="member-message" tal:define="info view/info">
+  <strong style="font-size: 110%">
+    <a tal:attributes="href view/siteURL" tal:content="view/siteTitle"></a>
+  </strong>
+  <br /><br />
+
+  <dl>
+    <dt>
+      <a tal:attributes="href info/url; title info/title">
+  <img tal:condition="info/default"
+       tal:attributes="src context/++resource++groupEmptyImage.png" />
+  <img tal:condition="not:info/default"
+       tal:attributes="src string:${info/url}/++attribute++logo" />
+      </a>
+      <div class="member-message-byline">
+  <tal:block content="info/members"/> Member(s),
+  Created on <tal:block content="structure formatter:date,medium:info/created" />
+  <tal:block condition="not:info/created">Unknown</tal:block>
+  <br />
+      </div>
+    </dt>
+    <dd>
+      <h4 class="member-message-title">
+  <tal:block tal:content="info/sender"/>
+  sent you a message in
+  <a tal:attributes="href info/url" tal:content="info/title"></a>
+      </h4>
+      <div tal:content="info/description"></div>
+      <br />
+      <div tal:content="structure info/message"></div>
+      <hr />
+    </dd>
+  </dl>
+  <div class="visualClear"></div>
+</div>
+
+<style tal:define="styles nocall:context/++resource++members-sendmessage-styles"
+       tal:content="structure python:styles.render(request)">
+</style>

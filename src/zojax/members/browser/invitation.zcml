@@ -1,0 +1,90 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.members">
+
+  <!-- member invitation -->
+  <zojax:pagelet
+     type="pagelet"
+     for="..interfaces.IMemberInvitation"
+     template="invitation.pt"
+     class=".invitation.Invitation"
+     permission="zope.Public" />
+
+  <!-- invite members -->
+  <adapter
+     name="groups.invite"
+     factory=".invitation.InviteMembersAction" />
+
+  <browser:icon
+     name="zmi_icon"
+     for=".interfaces.IInviteMembersAction"
+     file="icons/group.png" />
+
+  <zojax:pagelet
+     name="invite.html"
+     for="..interfaces.IMembersAware"
+     template="invitationmembers.pt"
+     class=".invitation.InviteMembersForm"
+     permission="zojax.InviteGroupMember" />
+
+  <!-- configure member invitations -->
+  <zojax:pagelet
+     name="invitations"
+     type="wizard.step"
+     for="..interfaces.IMembers
+	  zojax.content.forms.interfaces.IEditContentWizard"
+     template="manageinvites.pt"
+     class=".manageinvites.MembersInvitations"
+     weight="101"
+     permission="zojax.ModifyContent" />
+
+  <adapter
+     name="group.invitations"
+     provides="zope.contentprovider.interfaces.IContentProvider"
+     factory=".manageinvites.InvitationsTable" />
+
+  <adapter
+     name="id"
+     factory=".manageinvites.IdColumn" />
+
+  <adapter
+     name="code"
+     factory=".manageinvites.CodeColumn" />
+
+  <adapter
+     name="date"
+     factory=".manageinvites.DateColumn" />
+
+  <adapter
+     name="owner"
+     factory=".manageinvites.OwnerColumn" />
+
+  <adapter
+     name="principal"
+     factory=".manageinvites.PrincipalColumn" />
+
+  <!-- member invitation mail notification -->
+  <zojax:mailtemplate
+     name="html"
+     for="..interfaces.IMemberInvitation"
+     contentType="text/html"
+     template="invitationtemplate.pt"
+     class=".invitationtemplate.MemberInvitationNotification" />
+
+  <zojax:mailtemplate
+     name="text"
+     for="..interfaces.IMemberInvitation"
+     contentType="text/plain"
+     template="invitationtemplatetext.pt"
+     class=".invitationtemplate.MemberInvitationNotification" />
+
+  <subscriber
+     handler=".invitationtemplate.memberInvitationHandler" />
+  
+  <zojax:resource
+     name="members-memberinvitation-styles"
+     file="invitationtemplate.css" type="zrt" />
+
+</configure>

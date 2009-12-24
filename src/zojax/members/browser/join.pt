@@ -1,0 +1,12 @@
+<div class="zojax-principal-groups-join" i18n:domain="zojax.groups">
+  <h1 i18n:translate="">Do you want to join?</h1>
+
+  <form method="post" action="join.html">
+    <div class="z-form-controls">
+      <input class="z-form-button" type="submit" name="form.join" 
+	     value="Join" i18n:attributes="value" />
+      <input class="z-form-cancelbutton" type="submit" name="form.cancel"
+	     value="Cancel" i18n:attributes="value" />
+    </div>
+  </form>
+</div>

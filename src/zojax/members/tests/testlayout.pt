@@ -1,0 +1,11 @@
+<html>
+  <body>
+    <div id="z-portal-statusmessage"
+	 tal:content="structure provider:statusMessage">
+    </div>
+    <div tal:content="structure pageelement:portal.personalbar"></div>
+    <div tal:content="structure view/render"></div>
+    <div tal:content="structure portlet:portlet.actions"></div>
+    <div tal:content="structure portlet:portlet.recentlyjoined"></div>
+  </body>
+</html>
