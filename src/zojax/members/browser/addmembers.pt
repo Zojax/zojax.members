@@ -5,60 +5,61 @@
   <tal:block tal:condition="view/batch">
     <table class="z-table">
       <thead>
-	<tr class="z-table-pages">
-	  <td colspan="4">
-	    <tal:block content="structure view/batch/@@pagelet/batch.view" />
-	  </td>
-	</tr>
-	<tr>
-	  <th></th>
-	  <th i18n:translate="">Avatar</th>
-	  <th i18n:translate="">Name</th>
-	  <th></th>
-	</tr>
+  <tr class="z-table-pages">
+    <td colspan="4">
+      <tal:block content="structure view/batch/@@pagelet/batch.view" />
+    </td>
+  </tr>
+  <tr>
+    <th></th>
+    <th i18n:translate="">Avatar</th>
+    <th i18n:translate="">Name</th>
+    <th></th>
+  </tr>
       </thead>
       <tbody>
-	<tal:block tal:repeat="uid view/batch" tal:define="url view/managerURL">
-	  <tr tal:define="info python:view.getMemberInfo(uid);
-			  userurl string:$url/${info/spaceid}/profile/"
-	      tal:attributes="class python:repeat['uid'].odd() and 'even' or 'odd'">
-	    <td>
-	      <input type="checkbox" name="principal.users:list"
-		     tal:attributes="value info/id" 
-		     tal:condition="not:info/member"/>
-	    </td>
-	    <td class="ctb-avatar">
-	      <div>
-		<a tal:attributes="href userurl">
-		  <img tal:attributes="src info/avatar" />
-		</a>
-	      </div>
-	    </td>
-	    <td>
-	      <a tal:attributes="href userurl">
-		<tal:block content="info/title" />
-	      </a>
-	    </td>
-	    <td class="discreet">
-	      <tal:block tal:condition="info/member"
-			 i18n:translate="">Member of group</tal:block>
-	    </td>
-	  </tr>
-	</tal:block>
+  <tal:block tal:repeat="uid view/batch" tal:define="url view/managerURL">
+    <tr tal:define="info python:view.getMemberInfo(uid);
+        userurl string:$url/${info/spaceid}/profile/"
+        tal:attributes="class python:repeat['uid'].odd() and 'even' or 'odd'">
+      <td>
+        <input type="checkbox" name="principal.users:list"
+         tal:attributes="value info/id"
+         tal:condition="not:info/member"/>
+      </td>
+      <td class="ctb-avatar">
+        <div>
+    <a tal:attributes="href userurl">
+      <img tal:attributes="src info/avatar" />
+    </a>
+        </div>
+      </td>
+      <td>
+        <a tal:attributes="href userurl">
+    <tal:block content="info/title" />
+        </a>
+      </td>
+      <td class="discreet">
+        <tal:block tal:condition="info/member"
+       i18n:translate="">Member of group</tal:block>
+      </td>
+    </tr>
+  </tal:block>
       </tbody>
     </table>
 
     <div class="z-form-controls">
       <hr />
       <tal:block condition="nothing">
-	<input type="text" name="form.searchText"
-	       tal:attributes="value request/form.searchText|nothing" />
-	<input type="submit" class="z-form-button"
-	       name="form.search" value="Search for a user" />
+  <input type="text" name="form.searchText"
+         tal:attributes="value request/form.searchText|nothing" />
+  <input type="submit" class="z-form-button"
+         name="form.search" value="Search for a user" />
       </tal:block>
 
-      <input type="submit" name="formusers.select" 
-	     value="Add Members" class="z-form-button" i18n:attributes="value">
+      <input type="submit" name="formusers.select"
+       value="Add Members" class="z-form-button" i18n:attributes="value">
+      <tal:block tal:content="structure view/@@pagelet/form.buttons" />
     </div>
   </tal:block>
 

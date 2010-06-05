@@ -11,18 +11,21 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+from zojax.layoutform.interfaces import ISaveAction
 """
 
 $Id$
 """
+from zope import interface, schema
 from zope.component import getUtility, queryUtility
 from zope.traversing.browser import absoluteURL
 from zope.app.pagetemplate import ViewPageTemplateFile
 
-from zojax.layoutform import Fields
+from zojax.layoutform import Fields, button
 from zojax.batching.batch import Batch
 from zojax.wizard.step import WizardStep, WizardStepForm
 from zojax.catalog.interfaces import ICatalog
+from zojax.principal.field.field import PrincipalField, UserField
 from zojax.principal.profile.interfaces import IPersonalProfile
 from zojax.personal.space.interfaces import IPersonalSpace, IPersonalSpaceManager
 from zojax.statusmessage.interfaces import IStatusMessage
@@ -30,38 +33,38 @@ from zojax.statusmessage.interfaces import IStatusMessage
 from zojax.members.interfaces import _, IMembers
 
 
-class AddMembersForm(WizardStep):
+class IAddMembers(interface.Interface):
+
+    principals = schema.List(title=_('Select Users'),
+                             value_type=UserField(),
+                             required=False)
+
+
+class AddMembersForm(WizardStepForm):
 
     title = _(u'Add members')
-    template = ViewPageTemplateFile('addmembers.pt')
+    #template = ViewPageTemplateFile('addmembers.pt')
+    fields = Fields(IAddMembers)
+    ignoreContext = True
 
-    def update(self):
-        super(AddMembersForm, self).update()
-
+    @button.buttonAndHandler(_(u'Add Members'), name="add", provides=ISaveAction)
+    def selectButtonHandler(self, action):
+        data, errors = self.extractData()
         context = self.context
         request = self.request
-
-        if 'formusers.select' in request:
-            uids = request.get('principal.users')
-            if not uids:
-                IStatusMessage(request).add(u'Please select users.', 'warning')
-            else:
-                for uid in uids:
-                    context.joinPrincipal(uid)
-
-                IStatusMessage(request).add(u'Users have been added to group.')
-
-        self.manager = queryUtility(IPersonalSpaceManager)
-        if self.manager is None:
+        if errors:
+            IStatusMessage(request).add(self.formErrorsMessage, 'error')
             return
+        uids = data['principals']
+        if not uids:
+            IStatusMessage(self.request).add(
+                _('Please select user(s).'), 'warning')
+        else:
+            for uid in data['principals']:
+                context.joinPrincipal(uid)
+            IStatusMessage(request).add(u'Users have been added to group.')
+            self.redirect('.')
 
-        self.managerURL = absoluteURL(self.manager, self.request)
-
-        results = getUtility(ICatalog).searchResults(
-            type = {'any_of': ('personal.space',)},
-            searchContext = (self.manager,), sort_on='title')
-
-        self.batch = Batch(results, size=30, context=context, request=request)
 
     def getMemberInfo(self, space):
         principal = space.principal
