@@ -91,6 +91,9 @@ class IMembers(interface.Interface):
     def isMember(principalId):
         """ check if principal member of group """
 
+    def isManager(principalId):
+        """ check if principal manager of group """
+
 
 class IMemberApprovedEvent(interface.Interface):
     """ member approved """

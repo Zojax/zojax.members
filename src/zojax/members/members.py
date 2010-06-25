@@ -139,6 +139,9 @@ class Members(BaseContentContainer):
     def isMember(self, principalId):
         return principalId in self
 
+    def isManager(self, principalId):
+        return principalId in self.managers
+
     @Lazy
     def managers(self):
         self.managers = ()
