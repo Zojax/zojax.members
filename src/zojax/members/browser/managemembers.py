@@ -180,8 +180,8 @@ class ManageMembersForm(WizardStep):
         pid = request.principal.id
         ids = request.get('table.members.ids', ())
         members = self.context
-        if pid in ids:
-            IStatusMessage(request).add(_(u"You can't change your own membership"))
+        #if pid in ids:
+        #    IStatusMessage(request).add(_(u"You can't change your own membership"))
 
         if 'members.buttons.member' in request:
             if not ids:
