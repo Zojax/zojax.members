@@ -16,7 +16,7 @@
 $Id$
 """
 from zope import interface, component
-from zope.app.security.settings import Allow, Unset
+from zope.app.security.settings import Allow, Unset, Deny
 from zope.securitypolicy.interfaces import IPrincipalRoleMap
 
 from zojax.security.interfaces import IPrincipalGroups
@@ -49,25 +49,27 @@ class MembersAwareLocalroles(object):
             return ()
 
     def getRolesForPrincipal(self, principal_id):
-        roles = {}
+        roles = {'group.Manager':0, 'group.Member':0}
         if principal_id in self.members.managers:
             roles = {'group.Manager':1, 'group.Member':1}
 
         elif principal_id in self.members.principals and \
                 principal_id not in self.members.notapproved:
             roles['group.Member'] = 1
-
-        return [(role, Allow) for role in roles.keys()]
+        return [(role, value and Allow or Deny) for role, value in roles.items()]
 
     def getSetting(self, role_id, principal_id):
         if role_id == 'group.Manager':
             if principal_id in self.members.managers:
                 return Allow
+            return Deny
+
 
         if role_id == 'group.Member':
             if principal_id in self.members.principals and \
                     principal_id not in self.members.notapproved:
                 return Allow
+            return Deny
 
         return Unset
 

@@ -50,9 +50,9 @@ Group members
 
   >>> from zojax.security.interfaces import IExtendedGrantInfo
   >>> grantInfo = IExtendedGrantInfo(group)
-  >>> [info for info in grantInfo.getRolesForPrincipal('zojax.pf01')
-  ...  if not info[0].startswith('role')]
-  [('content.Owner', PermissionSetting: Deny)]
+  >>> sorted([info for info in grantInfo.getRolesForPrincipal('zojax.pf01')
+  ...  if not info[0].startswith('role')])
+  [('content.Owner', PermissionSetting: Deny), ('group.Manager', PermissionSetting: Deny), ('group.Member', PermissionSetting: Deny)]
 
   >>> actor.open('http://localhost/group/')
   >>> actor.getLink('Manage members').click()
@@ -260,7 +260,7 @@ Group member roles
   ...  if not info[0].startswith('role')]
   >>> lst.sort()
   >>> lst
-  [('content.Owner', PermissionSetting: Deny), ('group.Member', PermissionSetting: Allow)]
+  [('content.Owner', PermissionSetting: Deny), ('group.Manager', PermissionSetting: Deny), ('group.Member', PermissionSetting: Allow)]
 
   >>> grantInfo.getPrincipalsForRole('group.Member')
   [(u'zojax.pf01', PermissionSetting: Allow)]
@@ -269,7 +269,7 @@ Group member roles
 
   >>> localroles = component.getAdapter(group, IPrincipalRoleMap,'zojax.members')
   >>> localroles.getSetting('group.Manager', 'zojax.pf01')
-  PermissionSetting: Unset
+  PermissionSetting: Deny
   >>> localroles.getSetting('group.Member', 'zojax.pf01')
   PermissionSetting: Allow
   >>> localroles.getPrincipalsAndRoles()
@@ -317,7 +317,7 @@ Group managers
   ...  if not info[0].startswith('role')]
   >>> lst.sort()
   >>> lst
-  [('content.Owner', PermissionSetting: Deny), ('group.Member', PermissionSetting: Allow)]
+  [('content.Owner', PermissionSetting: Deny), ('group.Manager', PermissionSetting: Deny), ('group.Member', PermissionSetting: Allow)]
 
 
 RSS feed
@@ -359,6 +359,6 @@ Remove member
   ()
 
   >>> grantInfo = IExtendedGrantInfo(group)
-  >>> [info for info in grantInfo.getRolesForPrincipal('zojax.pf01')
-  ...  if not info[0].startswith('role')]
-  [('content.Owner', PermissionSetting: Deny)]
+  >>> sorted([info for info in grantInfo.getRolesForPrincipal('zojax.pf01')
+  ...  if not info[0].startswith('role')])
+  [('content.Owner', PermissionSetting: Deny), ('group.Manager', PermissionSetting: Deny), ('group.Member', PermissionSetting: Deny)]

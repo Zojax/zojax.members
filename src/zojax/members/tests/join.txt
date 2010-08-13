@@ -48,7 +48,7 @@ Join
   >>> user.url
   'http://localhost/group/members/'
 
-  >>> user.open('http://localhost/group/listing.html')  
+  >>> user.open('http://localhost/group/listing.html')
   >>> user.getLink('Join this group').click()
   >>> user.getControl('Join').click()
   >>> print user.contents
@@ -68,7 +68,7 @@ Join
   ...  if not (info[0].startswith('role') or info[0].startswith('content'))]
   >>> lst.sort()
   >>> lst
-  []
+  [('group.Manager', PermissionSetting: Deny), ('group.Member', PermissionSetting: Deny)]
 
   >>> actor.open('http://localhost/group/')
   >>> actor.getLink('Manage members').click()
@@ -82,7 +82,7 @@ Join
   ...  if not (info[0].startswith('role') or info[0].startswith('content'))]
   >>> lst.sort()
   >>> lst
-  [('group.Member', PermissionSetting: Allow)]
+  [('group.Manager', PermissionSetting: Deny), ('group.Member', PermissionSetting: Allow)]
 
   >>> user.open('http://localhost/group/')
   >>> print user.contents
@@ -99,7 +99,7 @@ Join
             <img src="http://localhost/@@profile.avatar/0" title="User" />
           </a>
         </div>
-        <a href="http://localhost/people/user/">User</a>  
+        <a href="http://localhost/people/user/">User</a>
         <div class="z-portlet-item-details">
           joined
           ...second(s) ago...
