@@ -190,9 +190,8 @@ class ManageMembersForm(WizardStep):
             else:
                 changed = False
                 for id in ids:
-                    if id != pid:
-                        members.toMember(id)
-                        changed = True
+                    members.toMember(id)
+                    changed = True
                 if changed:
                     IStatusMessage(request).add(_(u'Role has been changed.'))
 
@@ -203,9 +202,8 @@ class ManageMembersForm(WizardStep):
             else:
                 changed = False
                 for id in ids:
-                    if id != pid:
-                        members.toManager(id)
-                        changed = True
+                    members.toManager(id)
+                    changed = True
                 if changed:
                     IStatusMessage(request).add(_(u'Role has been changed.'))
 
@@ -216,7 +214,7 @@ class ManageMembersForm(WizardStep):
             else:
                 changed = False
                 for id in ids:
-                    if id != pid and id in members:
+                    if id in members:
                         del members[id]
                         changed = True
                 if changed:
