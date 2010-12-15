@@ -22,6 +22,7 @@ from zojax.wizard.step import WizardStep
 from zojax.members.interfaces import IMembersAware
 from zojax.statusmessage.interfaces import IStatusMessage
 from zojax.content.notifications.interfaces import IContentNotification
+from zojax.content.space.utils import getSpace 
 
 from interfaces import _
 
@@ -35,12 +36,12 @@ class Notifications(WizardStep):
         request = self.request
         context = self.context
 
-        context = IMembersAware(context, None)
+        context = IMembersAware(getSpace(context), None)
         if context is None:
             return
 
         notifications = []
-        for name, notification in getAdapters((context,), IContentNotification):
+        for name, notification in getAdapters((self.context,), IContentNotification):
             notifications.append((notification.title, name, notification))
 
         notifications.sort()
