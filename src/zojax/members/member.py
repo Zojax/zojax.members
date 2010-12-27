@@ -23,7 +23,7 @@ from zope.lifecycleevent import ObjectModifiedEvent
 from zope.app.container.interfaces import IObjectRemovedEvent
 from zope.app.security.interfaces import IAuthentication, PrincipalLookupError
 
-from zojax.authentication.utils import getPrincipal
+from zojax.security.utils import getPrincipal
 from zojax.principal.profile.interfaces import IPersonalProfile
 
 from interfaces import _, IMember
