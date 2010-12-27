@@ -23,6 +23,7 @@ from zope.lifecycleevent import ObjectModifiedEvent
 from zope.app.container.interfaces import IObjectRemovedEvent
 from zope.app.security.interfaces import IAuthentication, PrincipalLookupError
 
+from zojax.authentication.utils import getPrincipal
 from zojax.principal.profile.interfaces import IPersonalProfile
 
 from interfaces import _, IMember
@@ -37,7 +38,7 @@ class Member(Persistent, Location):
     @property
     def principal(self):
         try:
-            return getUtility(IAuthentication).getPrincipal(self.__name__)
+            return getPrincipal(self.__name__)
         except PrincipalLookupError:
             return None
 
