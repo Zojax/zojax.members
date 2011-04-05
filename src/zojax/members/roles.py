@@ -39,35 +39,35 @@ class MembersAwareLocalroles(object):
     def getPrincipalsForRole(self, role_id):
         principals = {}
         if role_id == 'group.Manager':
-            for principal in self.members.managers:
+            for principal in getattr(self.members,'managers',[]):
                 principals[principal] = 1
             return [(principal, Allow) for principal in principals.keys()]
         elif role_id == 'group.Member':
-            return [(pname, Allow) for pname in self.members.principals \
-                        if pname not in self.members.notapproved]
+            return [(pname, Allow) for pname in getattr(self.members,'principals',[]) \
+                        if pname not in getattr(self.members,'notapproved',[])]
         else:
             return ()
 
     def getRolesForPrincipal(self, principal_id):
         roles = {'group.Manager':0, 'group.Member':0}
-        if principal_id in self.members.managers:
+        if principal_id in getattr(self.members,'managers', []):
             roles = {'group.Manager':1, 'group.Member':1}
 
-        elif principal_id in self.members.principals and \
-                principal_id not in self.members.notapproved:
+        elif principal_id in getattr(self.members,'principals', []) and \
+                principal_id not in getattr(self.members,'notapproved', []):
             roles['group.Member'] = 1
         return [(role, value and Allow or Deny) for role, value in roles.items()]
 
     def getSetting(self, role_id, principal_id):
         if role_id == 'group.Manager':
-            if principal_id in self.members.managers:
+            if principal_id in getattr(self.members,'managers', []):
                 return Allow
             return Deny
 
 
         if role_id == 'group.Member':
-            if principal_id in self.members.principals and \
-                    principal_id not in self.members.notapproved:
+            if principal_id in getattr(self.members,'principals', []) and \
+                    principal_id not in getattr(self.members,'notapproved', []):
                 return Allow
             return Deny
 
