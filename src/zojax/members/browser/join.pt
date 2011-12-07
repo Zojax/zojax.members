@@ -1,4 +1,4 @@
-<div class="zojax-principal-groups-join" i18n:domain="zojax.groups">
+<div class="zojax-principal-groups-join" i18n:domain="zojax.members">
   <h1 i18n:translate="">Do you want to join?</h1>
 
   <form method="post" action="join.html">

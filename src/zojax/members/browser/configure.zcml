@@ -2,7 +2,7 @@
    xmlns="http://namespaces.zope.org/zope"
    xmlns:zojax="http://namespaces.zope.org/zojax"
    xmlns:browser="http://namespaces.zope.org/browser"
-   i18n_domain="zojax.groups">
+   i18n_domain="zojax.members">
 
   <include file="members.zcml" />
   <include file="invitation.zcml" />

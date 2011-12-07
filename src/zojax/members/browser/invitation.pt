@@ -8,10 +8,12 @@
 	<img tal:condition="not:info/default"
 	     tal:attributes="src string:${info/url}/++attribute++logo" />
       </a>
-      <div class="member-invitation-byline">
-	<tal:block content="info/members"/> Member(s),
-	Created on <tal:block content="structure formatter:date,medium:info/created" />
-	<tal:block condition="not:info/created">Unknown</tal:block>
+      <div class="member-invitation-byline" i18n:translate="">
+	<tal:block content="info/members" i18n:name="members" /> Member(s),
+	Created on <tal:block i18n:name="date" content="structure formatter:date,medium:info/created" />
+	<tal:block i18n:name="created">
+	  <tal:block condition="not:info/created" i18n:translate="">Unknown</tal:block>
+	</tal:block>
 	<br />
       </div>
     </dt>

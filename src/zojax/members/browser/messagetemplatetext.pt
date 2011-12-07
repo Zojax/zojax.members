@@ -1,13 +1,13 @@
-<tal:block define="info view/info">
-*<tal:block tal:content="view/siteTitle" />* <tal:block content="view/siteURL" />
+<tal:block define="info view/info" i18n:translate="">
+*<tal:block tal:content="view/siteTitle" i18n:name="site_title" />* <tal:block content="view/siteURL" i18n:name="site_url" />
 
-<tal:block tal:content="info/sender"/> sent you a message in
-<tal:block tal:content="info/title" /> <tal:block content="info/url" />
+<tal:block tal:content="info/sender" i18n:name="sender" /> sent you a message in
+<tal:block tal:content="info/title" i18n:name="title" /> <tal:block content="info/url" i18n:name="url" />
 
 Group description:
-<tal:block content="info/description" />
+<tal:block content="info/description" i18n:name="description" />
 
 --------------------------------------------
-<tal:block content="structure context/message" />
+<tal:block content="structure context/message" i18n:name="message" />
 -------------------------------------------
 </tal:block>

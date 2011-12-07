@@ -1,4 +1,4 @@
-<h1>EMail notifications</h1>
+<h1 i18n:translate="">EMail notifications</h1>
 
 <div class="z-table-container">
   <table class="z-table">
@@ -25,6 +25,6 @@
 
 <div class="z-form-controls">
   <hr />
-  <input type="submit" class="z-form-button"
+  <input type="submit" class="z-form-button" i18n:attributes="value"
 	 name="notifications.save" value="Update" />
 </div>

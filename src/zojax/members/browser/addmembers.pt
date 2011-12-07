@@ -53,12 +53,12 @@
       <tal:block condition="nothing">
   <input type="text" name="form.searchText"
          tal:attributes="value request/form.searchText|nothing" />
-  <input type="submit" class="z-form-button"
+  <input type="submit" class="z-form-button" i18n:attributes="value"
          name="form.search" value="Search for a user" />
       </tal:block>
 
       <input type="submit" name="formusers.select"
-       value="Add Members" class="z-form-button" i18n:attributes="value">
+       value="Add Members" class="z-form-button" i18n:attributes="value" />
       <tal:block tal:content="structure view/@@pagelet/form.buttons" />
     </div>
   </tal:block>

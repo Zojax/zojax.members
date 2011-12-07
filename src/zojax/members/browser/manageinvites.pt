@@ -5,7 +5,7 @@
 
   <div class="z-form-controls" tal:condition="table">
     <hr />
-    <input type="submit" class="z-form-button"
+    <input type="submit" class="z-form-button" i18n:attributes="value"
 	   name="buttons.remove" value="Remove" />
   </div>
 </tal:block>

@@ -12,18 +12,20 @@
   <img tal:condition="not:info/default"
        tal:attributes="src string:${info/url}/++attribute++logo" />
       </a>
-      <div class="member-invitation-byline">
-  <tal:block content="info/members"/> Member(s),
-  Created on <tal:block content="structure formatter:date,medium:info/created" />
-  <tal:block condition="not:info/created">Unknown</tal:block>
-  <br />
+      <div class="member-invitation-byline" i18n:translate="">
+        <tal:block content="info/members" i18n:name="members" /> Member(s),
+        Created on <tal:block content="structure formatter:date,medium:info/created" i18n:name="date" />
+	<tal:block i18n:name="created">
+        <tal:block condition="not:info/created" i18n:translate="">Unknown</tal:block>
+	</tal:block>
+        <br />
       </div>
     </dt>
     <dd>
-      <h4 class="member-invitation-title">
-  <tal:block tal:content="info/sender"/>
+      <h4 class="member-invitation-title" i18n:translate="">
+  <tal:block tal:content="info/sender" i18n:name="info_sender" />
   invites you to join
-  <a tal:attributes="href info/url" tal:content="info/title"></a>
+  <a tal:attributes="href info/url" tal:content="info/title" i18n:name="info_title" ></a>
       </h4>
       <div tal:content="info/description"></div>
       <br />

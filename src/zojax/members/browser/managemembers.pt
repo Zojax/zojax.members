@@ -1,8 +1,11 @@
-<h2>Members</h2>
+<h2 i18n:translate="">Members</h2>
 
-<h3>Group owner</h3>
+<h3 i18n:translate="">Group owner</h3>
 <div class="z-form-fieldset" tal:define="owner view/owner">
-  Owner: <a tal:attributes="href string:${context/__parent__/@@absolute_url}/context.html/security/changeowner.html"
+	<tal:block i18n:translate="">
+	Owner: 
+	</tal:block>
+	<a tal:attributes="href string:${context/__parent__/@@absolute_url}/context.html/security/changeowner.html"
             tal:content="owner/title"
             title="Change owner" i18n:attributes="title"></a>
   <div tal:content="owner/desc" tal:condition="owner/desc" />
@@ -12,13 +15,13 @@
 
 <div class="z-form-controls" tal:condition="context">
   <hr />
-  <input type="submit" class="z-form-button"
+  <input type="submit" class="z-form-button" i18n:attributes="value"
    name="members.buttons.member" value="Change to member role" />
-  <input type="submit" class="z-form-button"
+  <input type="submit" class="z-form-button" i18n:attributes="value"
    name="members.buttons.manager" value="Change to manager role" />
-  <input type="submit" class="z-form-button"
+  <input type="submit" class="z-form-button" i18n:attributes="value"
    name="members.buttons.approve" value="Approve" />
-  <input type="submit" class="z-form-removebutton"
+  <input type="submit" class="z-form-removebutton" i18n:attributes="value"
    name="members.buttons.remove" value="Remove" />
 </div>
 

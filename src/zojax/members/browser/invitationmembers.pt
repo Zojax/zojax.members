@@ -12,7 +12,7 @@
 
   <tal:block content="structure members/@@pagelet/batch.view" />
 
-  <h2>Select members</h2>
+  <h2 i18n:translate="">Select members</h2>
   <br />
   <div tal:condition="members">
     <table class="z-table" tal:define="url view/managerURL">

@@ -1,19 +1,19 @@
-<tal:block define="info view/invitation">
-*<tal:block tal:content="view/siteTitle" />* <tal:block content="view/siteURL" />
+<tal:block define="info view/invitation" i18n:translate="">
+*<tal:block tal:content="view/siteTitle" i18n:name="site_title" />* <tal:block content="view/siteURL" i18n:name="site_url" />
 
-<tal:block tal:content="info/sender"/> invites you to join 
-<tal:block tal:content="info/title" /> <tal:block content="info/url" />
+<tal:block tal:content="info/sender" i18n:name="sender" /> invites you to join 
+<tal:block tal:content="info/title" i18n:name="title" /> <tal:block content="info/url" i18n:name="info_url" />
 
 Group description:
-<tal:block content="info/description" />
+<tal:block content="info/description" i18n:name="info_description" />
 
 --------------------------------------------
-<tal:block content="structure context/message" />
+<tal:block content="structure context/message" i18n:name="context_message" />
 -------------------------------------------
 
 To accept this invitation, please go to:
-<tal:block content="info/url" />
+<tal:block content="info/url" i18n:name="info_url_go" />
 
 View all my invitations:
-<tal:block content="string:${view/space/@@absolute_url}/profile/myinvitations.html" />
+<tal:block content="string:${view/space/@@absolute_url}/profile/myinvitations.html" i18n:name="link_myinvitation" />
 </tal:block>

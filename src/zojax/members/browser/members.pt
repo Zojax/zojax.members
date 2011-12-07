@@ -1,4 +1,4 @@
-<h1>Members</h1>
+<h1 i18n:translate="">Members</h1>
 
 <div class="personalspace-manager">
   <tal:block content="structure view/batch/@@pagelet/batch.view" />
@@ -25,10 +25,12 @@
 	    <a tal:attributes="href string:${info/personalspace}/profile/; title info/description"
 	       tal:content="info/title" tal:omit-tag="not:info/personalspace"></a>
 	  </div>
+	  <tal:block i18n:translate="">
 	  Joined on
+	  </tal:block>
 	  <tal:block condition="info/joined"
 		     content="structure formatter:date,medium:info/joined" />
-	  <tal:block condition="not:info/joined">Unknown</tal:block>
+	  <tal:block condition="not:info/joined" i18n:translate="">Unknown</tal:block>
 	</dd>
       </dl>
     </div>
