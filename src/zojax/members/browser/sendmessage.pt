@@ -47,7 +47,7 @@
               </a>
             </td>
             <td tal:content="structure info/joined"></td>
-            <td tal:content="structure info/approved" i18n:translate=""></td>
+            <td tal:content="structure info/approved"></td>
           </tr>
         </tal:block>
       </tbody>
