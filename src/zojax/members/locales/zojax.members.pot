@@ -1,0 +1,488 @@
+##############################################################################
+#
+# Copyright (c) 2003-2004 Zope Corporation and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+##############################################################################
+msgid ""
+msgstr ""
+"Project-Id-Version: Development/Unknown\n"
+"POT-Creation-Date: Sun Dec 11 10:41:55 2011\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Zope 3 Developers <zope3-dev@zope.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: zope/app/locales/extract.py\n"
+
+#: src/zojax/members/activity.py:41
+#: src/zojax/members/browser/manageinvites.py:133
+#: src/zojax/members/browser/managemembers.py:114
+msgid "Member"
+msgstr ""
+
+#: src/zojax/members/activity.py:42
+msgid "Person joined group."
+msgstr ""
+
+#: src/zojax/members/browser/addmembers.pt:56
+msgid "Search for a user"
+msgstr ""
+
+#: src/zojax/members/browser/addmembers.py:38
+#: src/zojax/members/browser/sendmessage.pt:7
+#: src/zojax/members/browser/addmembers.pt:2
+msgid "Select Users"
+msgstr ""
+
+#: src/zojax/members/browser/addmembers.py:45
+msgid "Add members"
+msgstr ""
+
+#: src/zojax/members/browser/addmembers.py:50
+#: src/zojax/members/browser/addmembers.pt:60
+msgid "Add Members"
+msgstr ""
+
+#: src/zojax/members/browser/addmembers.py:61
+msgid "Please select user(s)."
+msgstr ""
+
+#: src/zojax/members/browser/addmembers.py:88
+msgid "Configure"
+msgstr ""
+
+#: src/zojax/members/browser/addmembers.py:95
+msgid "Membership"
+msgstr ""
+
+#: src/zojax/members/browser/export.py:33
+msgid "Export"
+msgstr ""
+
+#: src/zojax/members/browser/export.py:34
+msgid "Export Members Data"
+msgstr ""
+
+#: src/zojax/members/browser/export.py:74
+msgid "Export CSV"
+msgstr ""
+
+#: src/zojax/members/browser/interfaces.py:56
+#: src/zojax/members/browser/interfaces.py:64
+msgid "Message"
+msgstr ""
+
+#: src/zojax/members/browser/interfaces.py:75
+msgid "Principal full name"
+msgstr ""
+
+#: src/zojax/members/browser/interfaces.py:76
+msgid "Principal first name"
+msgstr ""
+
+#: src/zojax/members/browser/interfaces.py:77
+msgid "Principal last name"
+msgstr ""
+
+#: src/zojax/members/browser/interfaces.py:78
+msgid "Principal email"
+msgstr ""
+
+#: src/zojax/members/browser/invitation.pt:23
+msgid "${member} invites you to join"
+msgstr ""
+
+#: src/zojax/members/browser/invitation.pt:33
+msgid "Accept"
+msgstr ""
+
+#: src/zojax/members/browser/invitation.pt:36
+msgid "Reject"
+msgstr ""
+
+#: src/zojax/members/browser/invitation.py:101
+#: src/zojax/members/browser/invitation.py:113
+msgid "Invite members"
+msgstr ""
+
+#: src/zojax/members/browser/invitation.py:151
+msgid "Invite"
+msgstr ""
+
+#: src/zojax/members/browser/invitation.py:176
+msgid "Invitations have been sent."
+msgstr ""
+
+#: src/zojax/members/browser/invitation.py:179
+#: src/zojax/members/browser/join.pt:8
+msgid "Cancel"
+msgstr ""
+
+#: src/zojax/members/browser/invitation.py:60
+msgid "Invitation has been accepted."
+msgstr ""
+
+#: src/zojax/members/browser/invitation.py:71
+msgid "Invitation has been rejected."
+msgstr ""
+
+#: src/zojax/members/browser/invitation.py:94
+msgid "Unknown member"
+msgstr ""
+
+#: src/zojax/members/browser/invitationmembers.pt:15
+msgid "Select members"
+msgstr ""
+
+#: src/zojax/members/browser/invitationmembers.pt:50
+#: src/zojax/members/browser/addmembers.pt:43
+msgid "Member of group"
+msgstr ""
+
+#: src/zojax/members/browser/invitationtemplate.pt:18
+msgid "${members} Member(s), Created on ${date} ${created} <br />"
+msgstr ""
+
+#: src/zojax/members/browser/invitationtemplate.pt:28
+msgid "${info_sender} invites you to join ${info_title}"
+msgstr ""
+
+#: src/zojax/members/browser/invitationtemplatetext.pt:18
+msgid "*${site_title}* ${site_url} ${sender} invites you to join ${title} ${info_url} Group description: ${info_description} -------------------------------------------- ${context_message} ------------------------------------------- To accept this invitation, please go to: ${info_url_go} View all my invitations: ${link_myinvitation}"
+msgstr ""
+
+#: src/zojax/members/browser/join.pt:2
+msgid "Do you want to join?"
+msgstr ""
+
+#: src/zojax/members/browser/join.pt:6
+msgid "Join"
+msgstr ""
+
+#: src/zojax/members/browser/join.py:42
+msgid "You have been joined to group."
+msgstr ""
+
+#: src/zojax/members/browser/join.py:45
+msgid "Your membership has been submitted. Waiting manager approvement."
+msgstr ""
+
+#: src/zojax/members/browser/join.py:56
+msgid "Join this group"
+msgstr ""
+
+#: src/zojax/members/browser/manageinvites.py:100
+msgid "Invitation code"
+msgstr ""
+
+#: src/zojax/members/browser/manageinvites.py:110
+msgid "Owner"
+msgstr ""
+
+#: src/zojax/members/browser/manageinvites.py:159
+msgid "Date"
+msgstr ""
+
+#: src/zojax/members/browser/manageinvites.py:44
+#: src/zojax/members/browser/manageinvites.py:71
+msgid "Invitations"
+msgstr ""
+
+#: src/zojax/members/browser/manageinvites.py:56
+msgid "Please select invitations."
+msgstr ""
+
+#: src/zojax/members/browser/manageinvites.py:60
+msgid "Invitations has been removed."
+msgstr ""
+
+#: src/zojax/members/browser/manageinvites.py:75
+msgid "There are no invitations in this group."
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.pt:18
+msgid "Change to member role"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.pt:20
+msgid "Change to manager role"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.pt:22
+msgid "Approve"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.pt:24
+#: src/zojax/members/browser/manageinvites.pt:8
+msgid "Remove"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.pt:3
+msgid "Group owner"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.pt:5
+msgid "Owner:"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.pt:8
+msgid "Change owner"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:107
+msgid "Role in group"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:112
+msgid "Manager"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:140
+#: src/zojax/members/browser/sendmessage.pt:23
+msgid "Joined"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:158
+msgid "Status"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:162
+#: src/zojax/members/browser/sendmessage.py:82
+#: src/zojax/members/browser/sendmessage.pt:24
+msgid "Approved"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:164
+#: src/zojax/members/browser/sendmessage.py:82
+msgid "Not yet approved"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:176
+msgid "Unknown principal"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:189
+#: src/zojax/members/browser/managemembers.py:201
+#: src/zojax/members/browser/managemembers.py:213
+#: src/zojax/members/browser/managemembers.py:226
+msgid "Please select members."
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:196
+#: src/zojax/members/browser/managemembers.py:208
+msgid "Role has been changed."
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:221
+msgid "Members have been removed."
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:233
+msgid "Members have been updated."
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:41
+#: src/zojax/members/members.py:50
+#: src/zojax/members/members.py:219
+#: src/zojax/members/vocabulary.py:31
+#: src/zojax/members/browser/members.pt:1
+#: src/zojax/members/browser/managemembers.pt:1
+msgid "Members"
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:46
+msgid "There are no members in this group."
+msgstr ""
+
+#: src/zojax/members/browser/managemembers.py:93
+#: src/zojax/members/browser/sendmessage.pt:22
+#: src/zojax/members/browser/invitationmembers.pt:23
+#: src/zojax/members/browser/addmembers.pt:16
+msgid "Name"
+msgstr ""
+
+#: src/zojax/members/browser/members.pt:28
+msgid "Joined on"
+msgstr ""
+
+#: src/zojax/members/browser/members.py:76
+#: src/zojax/members/feeds.py:81
+#: src/zojax/members/member.py:51
+#: src/zojax/members/browser/members.pt:33
+#: src/zojax/members/browser/invitationtemplate.pt:19
+#: src/zojax/members/browser/messagetemplate.pt:19
+msgid "Unknown"
+msgstr ""
+
+#: src/zojax/members/browser/members.py:99
+#: src/zojax/members/browser/members.py:112
+msgid "Manage members"
+msgstr ""
+
+#: src/zojax/members/browser/messagetemplate.pt:18
+msgid "${members} Member(s), Created on ${created} ${created_unknow} <br />"
+msgstr ""
+
+#: src/zojax/members/browser/messagetemplate.pt:28
+msgid "${sender} sent you a message in ${title}"
+msgstr ""
+
+#: src/zojax/members/browser/messagetemplatetext.pt:11
+msgid "*${site_title}* ${site_url} ${sender} sent you a message in ${title} ${url} Group description: ${description} -------------------------------------------- ${message} -------------------------------------------"
+msgstr ""
+
+#: src/zojax/members/browser/notifications.pt:1
+msgid "EMail notifications"
+msgstr ""
+
+#: src/zojax/members/browser/notifications.pt:28
+msgid "Update"
+msgstr ""
+
+#: src/zojax/members/browser/notifications.py:81
+msgid "Email notification subscriptions have been updated."
+msgstr ""
+
+#: src/zojax/members/browser/sendmessage.pt:21
+#: src/zojax/members/browser/invitationmembers.pt:22
+#: src/zojax/members/browser/addmembers.pt:15
+msgid "Avatar"
+msgstr ""
+
+#: src/zojax/members/browser/sendmessage.py:102
+msgid "Please select users."
+msgstr ""
+
+#: src/zojax/members/browser/sendmessage.py:125
+msgid "Message to members has been sent."
+msgstr ""
+
+#: src/zojax/members/browser/sendmessage.py:36
+msgid "Send message"
+msgstr ""
+
+#: src/zojax/members/browser/sendmessage.py:87
+msgid "Send"
+msgstr ""
+
+#: src/zojax/members/feeds.py:45
+msgid "Recent members"
+msgstr ""
+
+#: src/zojax/members/feeds.py:46
+msgid "List of recently joined members."
+msgstr ""
+
+#: src/zojax/members/interfaces.py:68
+msgid "Join Group Permissions"
+msgstr ""
+
+#: src/zojax/members/interfaces.py:69
+msgid "Site Members can Join Groups."
+msgstr ""
+
+#: src/zojax/members/interfaces.py:74
+msgid "Join Approvals"
+msgstr ""
+
+#: src/zojax/members/interfaces.py:75
+msgid "Members Wanting to Join a Group Must be Approved."
+msgstr ""
+
+#: src/zojax/members/interfaces.py:80
+msgid "Group Invitations Permissions"
+msgstr ""
+
+#: src/zojax/members/interfaces.py:81
+msgid "Specify who can invite site members to join a Group."
+msgstr ""
+
+#: src/zojax/members/invitation.zcml:7
+msgid "Member invitation"
+msgstr ""
+
+#: src/zojax/members/permissions.zcml:10
+msgid "Group member"
+msgstr ""
+
+#: src/zojax/members/permissions.zcml:14
+msgid "Allow add users to groups."
+msgstr ""
+
+#: src/zojax/members/permissions.zcml:14
+msgid "Add member to group"
+msgstr ""
+
+#: src/zojax/members/permissions.zcml:19
+msgid "Allow join to members."
+msgstr ""
+
+#: src/zojax/members/permissions.zcml:19
+msgid "Join members"
+msgstr ""
+
+#: src/zojax/members/permissions.zcml:24
+msgid "Invite member"
+msgstr ""
+
+#: src/zojax/members/permissions.zcml:24
+msgid "Allow invite members."
+msgstr ""
+
+#: src/zojax/members/permissions.zcml:29
+msgid "Modify members settings."
+msgstr ""
+
+#: src/zojax/members/permissions.zcml:7
+msgid "Group manager"
+msgstr ""
+
+#: src/zojax/members/portlets/configure.zcml:8
+msgid "Recently joined members"
+msgstr ""
+
+#: src/zojax/members/portlets/configure.zcml:8
+msgid "Recently joined members."
+msgstr ""
+
+#: src/zojax/members/portlets/interfaces.py:26
+msgid "Number of member"
+msgstr ""
+
+#: src/zojax/members/portlets/interfaces.py:27
+msgid "Number of members to display"
+msgstr ""
+
+#: src/zojax/members/portlets/joined.pt:23
+msgid "joined ${date}"
+msgstr ""
+
+#: src/zojax/members/portlets/joined.pt:30
+msgid "More..."
+msgstr ""
+
+#: src/zojax/members/portlets/joined.pt:4
+msgid "Recently joined"
+msgstr ""
+
+#: src/zojax/members/vocabulary.py:32
+msgid "Any Member can Invite a Site Member to Join the Group."
+msgstr ""
+
+#: src/zojax/members/vocabulary.py:35
+msgid "Managers"
+msgstr ""
+
+#: src/zojax/members/vocabulary.py:36
+msgid "Only Managers can Invite a Site Member to Join the Group."
+msgstr ""
+
