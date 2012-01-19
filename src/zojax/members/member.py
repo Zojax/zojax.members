@@ -21,6 +21,7 @@ from zope.location import Location
 from zope.component import getUtility
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope.app.container.interfaces import IObjectRemovedEvent
+from zojax.content.permissions.utils import updatePermissions
 from zope.app.security.interfaces import IAuthentication, PrincipalLookupError
 
 from zojax.security.utils import getPrincipal
@@ -65,4 +66,6 @@ class Member(Persistent, Location):
 
 @component.adapter(IMember, IObjectRemovedEvent)
 def memberRemoved(object, ev):
-    event.notify(ObjectModifiedEvent(ev.oldParent.__parent__))
+    space = ev.oldParent.__parent__
+    updatePermissions(space)
+    event.notify(ObjectModifiedEvent(space))
