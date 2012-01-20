@@ -190,7 +190,7 @@ class Members(BaseContentContainer):
             self.notapproved.remove(key)
 
         super(Members, self).__delitem__(key)
-        #updatePermissions(self.__parent__)
+        updatePermissions(self.__parent__)
         event.notify(ObjectModifiedEvent(self.__parent__))
 
     def invite(self, principal, message):

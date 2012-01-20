@@ -8,6 +8,6 @@
        interface=".interfaces.IMember" />
   </class>
 
-  <subscriber handler=".member.memberRemoved" />
+  <!--subscriber handler=".member.memberRemoved" /-->
 
 </configure>
