@@ -88,28 +88,33 @@ Join
   >>> print user.contents
   <html>
   ...
-  <div><div class="z-portlet portlet-members-recentlyjoined">
+  ...<div class="z-portlet portlet-members-recentlyjoined">
+  <BLANKLINE>
     <h2 class="z-portlet-header">
-        Recently joined
+      Recently joined
     </h2>
+  <BLANKLINE>
     <div class="z-portlet-body">
       <div class="z-portlet-item odd">
+  <BLANKLINE>
         <div class="t-avatar">
-          <a href="http://localhost/people/user/">
-            <img src="http://localhost/@@profile.avatar/0" title="User" />
-          </a>
+  	<a href="http://localhost/people/user/">
+  	  <img src="http://localhost/@@profile.avatar/0" title="User" />
+  	</a>
         </div>
         <a href="http://localhost/people/user/">User</a>
+  <BLANKLINE>
         <div class="z-portlet-item-details">
-          joined
-          ...second(s) ago...
+  	joined
+  	...second(s) ago</span>
         </div>
         <div class="visualClear"></div>
       </div>
     </div>
+  <BLANKLINE>
     <div class="z-portlet-footer">
       <a href="http://localhost/group/members/">More...</a>
     </div>
-  </div></div>
+  </div>...
   ...
   </html>
