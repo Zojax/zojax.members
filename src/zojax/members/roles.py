@@ -46,6 +46,13 @@ class MembersAwareLocalroles(object):
             return [(pname, Allow) for pname in getattr(self.members,'principals',[]) \
                         if pname not in getattr(self.members,'notapproved',[])]
         else:
+            container = self.context.__parent__
+            while not IMembersAware.providedBy(container) and container is not None:
+                container = container.__parent__
+
+            if container is not None:
+                return IPrincipalRoleMap(IMembersAware(container)).getPrincipalsForRole(role_id)
+
             return ()
 
     def getRolesForPrincipal(self, principal_id):
@@ -56,6 +63,15 @@ class MembersAwareLocalroles(object):
         elif principal_id in getattr(self.members,'principals', []) and \
                 principal_id not in getattr(self.members,'notapproved', []):
             roles['group.Member'] = 1
+
+        else:
+            container = self.context.__parent__
+            while not IMembersAware.providedBy(container) and container is not None:
+                container = container.__parent__
+
+            if container is not None:
+                return IPrincipalRoleMap(IMembersAware(container)).getRolesForPrincipal(principal_id)
+
         return [(role, value and Allow or Deny) for role, value in roles.items()]
 
     def getSetting(self, role_id, principal_id):
