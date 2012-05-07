@@ -278,6 +278,15 @@ Group member roles
 Group managers
 --------------
 
+add a subgroup to the first group
+  >>> subgroup = Group()
+  >>> event.notify(ObjectCreatedEvent(subgroup))
+  >>> root['group']['subgroup'] = subgroup
+
+test group nesting
+  >>> subgroup.__parent__ is group
+  True
+
   >>> actor.getLink('Members').click()
   >>> actor.getLink('Manage members').click()
   >>> actor.getControl('Change to manager role').click()
@@ -292,12 +301,32 @@ Group managers
   >>> print group.members.managers
   (u'zojax.pf01',)
 
+user is not added to the managers in subgroup
+  >>> print subgroup.members.managers
+  ()
+
   >>> grantInfo = IExtendedGrantInfo(group)
   >>> lst = [info for info in grantInfo.getRolesForPrincipal('zojax.pf01')
   ...  if not (info[0].startswith('role') or info[0].startswith('content'))]
   >>> lst.sort()
   >>> lst
   [('group.Manager', PermissionSetting: Allow), ('group.Member', PermissionSetting: Allow)]
+
+check getPrincipalsForRole
+   >>> grantInfo.getPrincipalsForRole('group.Manager')
+   [(u'zojax.pf01', PermissionSetting: Allow)]
+
+but user has manager permissions in subgroup
+  >>> grantInfo = IExtendedGrantInfo(subgroup)
+  >>> lst = [info for info in grantInfo.getRolesForPrincipal('zojax.pf01')
+  ...  if not (info[0].startswith('role') or info[0].startswith('content'))]
+  >>> lst.sort()
+  >>> lst
+  [('group.Manager', PermissionSetting: Allow), ('group.Member', PermissionSetting: Allow)]
+
+check getPrincipalsForRole for subgroup
+   >>> grantInfo.getPrincipalsForRole('group.Manager')
+   [(u'zojax.pf01', PermissionSetting: Allow)]
 
   >>> actor.getControl(name='table.members.ids:list').value = []
   >>> actor.getControl('Change to member role').click()
@@ -312,6 +341,10 @@ Group managers
   >>> print group.members.managers
   ()
 
+user is not added to the managers in subgroup
+  >>> print subgroup.members.managers
+  ()
+
   >>> grantInfo = IExtendedGrantInfo(group)
   >>> lst = [info for info in grantInfo.getRolesForPrincipal('zojax.pf01')
   ...  if not info[0].startswith('role')]
@@ -319,8 +352,24 @@ Group managers
   >>> lst
   [('content.Owner', PermissionSetting: Deny), ('group.Manager', PermissionSetting: Deny), ('group.Member', PermissionSetting: Allow)]
 
+check getPrincipalsForRole
+   >>> grantInfo.getPrincipalsForRole('group.Manager')
+   []
+
+and now user hasn't manager permissions in subgroup
+  >>> grantInfo = IExtendedGrantInfo(group)
+  >>> lst = [info for info in grantInfo.getRolesForPrincipal('zojax.pf01')
+  ...  if not info[0].startswith('role')]
+  >>> lst.sort()
+  >>> lst
+  [('content.Owner', PermissionSetting: Deny), ('group.Manager', PermissionSetting: Deny), ('group.Member', PermissionSetting: Allow)]
+
+check getPrincipalsForRole for subgroup
+   >>> grantInfo.getPrincipalsForRole('group.Manager')
+   []
 
 RSS feed
+--------
 
     >>> user.open('http://localhost/group/@@feeds/members')
     >>> print user.contents
