@@ -126,7 +126,7 @@ class InviteMembersForm(PageletForm):
             return ()
         self.managerURL = absoluteURL(manager, self.request)
         try:
-            if self.request.has_key('form.widgets.search'):
+            if self.request.has_key('form.widgets.search') and self.request.get('form.widgets.search') != '':
                 results = getUtility(ICatalog).searchResults(
                     type = {'any_of': ('personal.space',)},
                     searchableText = (self.request.get('form.widgets.search')),
