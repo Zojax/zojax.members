@@ -1,7 +1,6 @@
 <div class="z-form z-form-standard" i18n:domain="zojax.members"
      tal:define="members view/getMembers">
-
-  <form action="." method="post" enctype="multipart/form-data" 
+  <form action="." method="post" enctype="multipart/form-data"
 	tal:attributes="method view/method;
 			enctype view/enctype;
 			acceptCharset view/acceptCharset;
@@ -9,9 +8,8 @@
 			action view/action;
 			name view/name;id view/id">
   <tal:block tal:content="structure view/@@pagelet/form.viewspace" />
-
+  <tal:block tal:content="structure view/@@pagelet/form.buttons" />
   <tal:block content="structure members/@@pagelet/batch.view" />
-
   <h2 i18n:translate="">Select members</h2>
   <br />
   <div tal:condition="members">
@@ -55,7 +53,5 @@
       </tbody>
     </table>
   </div>
-
-  <tal:block tal:content="structure view/@@pagelet/form.buttons" />
   </form>
 </div>

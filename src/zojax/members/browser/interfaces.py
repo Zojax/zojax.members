@@ -16,6 +16,7 @@
 $Id$
 """
 from zope import interface, schema
+from zojax.principal.field.field import UserField, GroupField
 
 from zojax.table.interfaces import ITable
 from zojax.widget.checkbox.field import CheckboxList
@@ -55,6 +56,8 @@ class IInviteMembersForm(interface.Interface):
     message = schema.Text(
         title = _('Message'),
         required = True)
+
+    search = schema.TextLine(title=_(u'Search user'))
 
 
 class ISendMessageForm(interface.Interface):

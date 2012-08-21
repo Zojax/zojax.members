@@ -60,4 +60,7 @@
     border: 1px solid globalBorderColor;
   }
 
+  .zojax-members-browser-invitation-invitemembersform #form-widgets-search  {
+    width: 150px !important;
+  }
 }

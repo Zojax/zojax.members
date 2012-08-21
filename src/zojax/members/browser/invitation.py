@@ -17,7 +17,10 @@ $Id$
 """
 import cgi
 from zope import interface, component
+import zope
+from z3c.form import widget, validator
 from zope.component import getUtility, queryUtility
+from zope.index.text.parsetree import ParseError
 from zope.proxy import removeAllProxies
 from zope.security import checkPermission
 from zope.security.proxy import removeSecurityProxy
@@ -121,15 +124,21 @@ class InviteMembersForm(PageletForm):
         manager = queryUtility(IPersonalSpaceManager)
         if manager is None:
             return ()
-
         self.managerURL = absoluteURL(manager, self.request)
-
-        results = getUtility(ICatalog).searchResults(
-            type = {'any_of': ('personal.space',)},
-            searchContext = (manager,), sort_on='title')
-
-        return Batch(results, size=30,
-                     context = self.context, request = self.request)
+        try:
+            if self.request.has_key('form.widgets.search'):
+                results = getUtility(ICatalog).searchResults(
+                    type = {'any_of': ('personal.space',)},
+                    searchableText = (self.request.get('form.widgets.search')),
+                    searchContext = (manager,), sort_on='title')
+            else:
+                results = getUtility(ICatalog).searchResults(
+                    type = {'any_of': ('personal.space',)},
+                    searchContext = (manager,), sort_on='title')
+        except ParseError, err:
+            results = []
+            IStatusMessage(self.request).add(_(str(err)), 'error')
+        return Batch(results, size=30, context = self.context, request = self.request)
 
     def getMemberInfo(self, space):
         principal = space.principal
@@ -179,3 +188,7 @@ class InviteMembersForm(PageletForm):
     @button.buttonAndHandler(_(u'Cancel'), provides=interfaces.ICancelButton)
     def handleCancel(self, action):
         self.redirect('.')
+
+    @button.buttonAndHandler(_(u'Search'))
+    def handleSearch(self, action):
+        pass
