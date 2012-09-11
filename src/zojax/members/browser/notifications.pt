@@ -5,6 +5,7 @@
     <thead>
       <tr>
 	<th>&nbsp;</th>
+	<th>Spaces</th>
 	<th tal:repeat="notification view/notifications"
 	    tal:content="notification/title"></th>
       </tr>
@@ -13,6 +14,7 @@
       <tr tal:repeat="member view/members"
 	  tal:attributes="class python:repeat['member'].odd() and 'even' or 'odd'">
 	<td tal:content="member/title"></td>
+	<td tal:content="member/spaces"></td>
 	<td tal:repeat="notification view/notifications" class="notification">
 	  <input type="checkbox" name="notifications:list"
 		 tal:attributes="value string:${member/id}:${notification/type};

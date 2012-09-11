@@ -18,6 +18,7 @@ $Id$
 from zope.component import getAdapter, getAdapters
 from zope.app.security.interfaces import IAuthenticatedGroup, IEveryoneGroup
 
+from zojax.catalog.interfaces import ICatalog
 from zojax.wizard.step import WizardStep
 from zojax.members.interfaces import IMembersAware
 from zojax.statusmessage.interfaces import IStatusMessage
@@ -25,6 +26,7 @@ from zojax.content.notifications.interfaces import IContentNotification
 from zojax.content.space.utils import getSpace 
 
 from interfaces import _
+from zope.component._api import getUtility
 
 
 class Notifications(WizardStep):
@@ -47,18 +49,28 @@ class Notifications(WizardStep):
         notifications.sort()
         self.notifications = [notification for title, name, notification
                               in notifications]
-
         members = []
-        for member in context.members.values():
-            principal = member.principal
-            if principal is None:
-                continue
-
-            title = member.title
-            members.append((title, {'id': principal.id,
-                                    'title': title,
-                                    'principal': principal}))
-
+        spaces = list(getUtility(ICatalog).searchResults(
+            type={'any_of': ('content.space',)},
+            traversablePath={'any_of': [context]}))
+        spaces.append(context)
+        for space in spaces:
+            for member in space.members.values():
+                principal = member.principal
+                if principal is None:
+                    continue
+                title = member.title
+                position = -1
+                for pos, memb in enumerate(members):
+                    if member.title in memb:
+                        position = pos
+                if position != -1:
+                    members[position][1]['spaces'] = members[position][1]['spaces'] + ', ' + space.title
+                else:
+                    members.append((title, {'id': principal.id,
+                                            'title': title,
+                                            'principal': principal,
+                                            'spaces': space.title}))
         members.sort()
         self.members = [info for _t, info in members]
 
