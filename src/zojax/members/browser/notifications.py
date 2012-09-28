@@ -60,7 +60,7 @@ class Notifications(WizardStep):
         for space in spaces:
             for member in space.members.values():
                 principal = member.principal
-                if principal is None:
+                if principal is None or principal.id=='unknown':
                     continue
                 title = member.title
                 position = -1
@@ -99,15 +99,14 @@ class Notifications(WizardStep):
         if spaces:
             for space in spaces:
                 for member in space.members.values():
-                    principal = member.principal
-                    if principal is None:
-                        continue
                     members_dict = dict(members)
                     if member.title in members_dict.keys():
                         if space.title in rd:
                             rd[space.title].append([member.title, members_dict[member.title]['spaces'], members_dict[member.title]['id']])
                         else:
                             rd[space.title] = [[member.title, members_dict[member.title]['spaces'], members_dict[member.title]['id']]]
+            for space in rd.keys():
+                rd[space].sort(key=lambda memb: memb[0])
         return rd
 
     def isAvailable(self):
