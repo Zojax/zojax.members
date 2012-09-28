@@ -16,9 +16,12 @@
 	  tal:attributes="class python:repeat['user'].odd() and 'even' or 'odd'">
 	    <td tal:content="python: user[0]"></td>
         <td>
-            <span tal:repeat="space python: user[1]">
+            <tal:block tal:repeat="space python: user[1]">
                 <tal:block tal:content="space"/>
-            </span>
+                <tal:block tal:condition="not: repeat/space/end">
+                    |
+                </tal:block>
+            </tal:block>
         </td>
 	<td tal:repeat="notification view/notifications" class="notification">
 	  <input type="checkbox" name="notifications:list"
