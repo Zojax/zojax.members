@@ -11,24 +11,25 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-from zojax.layoutform.interfaces import ISaveAction
 """
 
 $Id$
 """
 from zope import interface, schema
-from zope.component import getUtility, queryUtility
-from zope.traversing.browser import absoluteURL
 from zope.app.pagetemplate import ViewPageTemplateFile
+from zope.component import getUtility, queryUtility
+from zope.proxy import removeAllProxies
+from zope.traversing.browser import absoluteURL
 
-from zojax.layoutform import Fields, button
 from zojax.batching.batch import Batch
-from zojax.wizard.step import WizardStep, WizardStepForm
 from zojax.catalog.interfaces import ICatalog
+from zojax.layoutform import Fields, button
+from zojax.layoutform.interfaces import ISaveAction
+from zojax.personal.space.interfaces import IPersonalSpace, IPersonalSpaceManager
 from zojax.principal.field.field import PrincipalField, UserField
 from zojax.principal.profile.interfaces import IPersonalProfile
-from zojax.personal.space.interfaces import IPersonalSpace, IPersonalSpaceManager
 from zojax.statusmessage.interfaces import IStatusMessage
+from zojax.wizard.step import WizardStep, WizardStepForm
 
 from zojax.members.interfaces import _, IMembers
 
@@ -97,4 +98,5 @@ class MembersAwareConfig(WizardStepForm):
     fields = Fields(IMembers)
 
     def getContent(self):
-        return self.wizard.getContent().members
+        content = removeAllProxies(self.wizard.getContent())
+        return content.members

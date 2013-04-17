@@ -18,16 +18,15 @@ $Id$
 from zope.proxy import removeAllProxies
 
 from zojax.batching.batch import Batch
-from zojax.security.utils import getPrincipals
-from zojax.members.interfaces import IMembersAware
 from zojax.content.permissions.browser.wizard import ContentPermissions
+from zojax.members.interfaces import IMembersAware
+from zojax.security.utils import getPrincipals
 
 
 class MembersAwareContentPermissions(ContentPermissions):
 
     def getPrincipals(self):
-        context = self.context
-
+        context = removeAllProxies(self.context)
         members = removeAllProxies(IMembersAware(context).members).keys()
 
         batch = Batch(members, size=10, context=context, request=self.request)
