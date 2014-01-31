@@ -376,20 +376,24 @@ RSS feed
     <?xml version="1.0" encoding="UTF-8"?>
     <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
       <channel>
-        <title>Recent members</title>
+        <title>Recent members
+    </title>
         <link>http://localhost/group/</link>
         <description>List of recently joined members.</description>
         <atom:link rel="self" type="application/rss+xml"
                    href="http://localhost/group/@@feeds/members"/>
         <item>
           <title>User 1</title>
-          <description></description>
+          <description type="html"><![CDATA[]]></description>
           <guid isPermaLink="true">http://localhost/people/user1</guid>
           <author>some@some.com (User 1)</author>
           <pubDate>...</pubDate>
         </item>
       </channel>
     </rss>
+    <BLANKLINE>
+
+
 
 Remove member
 -------------

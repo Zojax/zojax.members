@@ -45,6 +45,7 @@ Invitation
 
   >>> actor.open('http://localhost/group/listing.html')
   >>> actor.getLink('Invite members').click()
+  >>> actor.getControl(name="form.widgets.search").value = 'zope.user'
   >>> actor.getControl(name="principal.users:list").value = ['zope.user']
   >>> actor.getControl("Invite").click()
   >>> print actor.contents
